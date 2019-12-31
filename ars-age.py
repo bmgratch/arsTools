@@ -13,7 +13,10 @@ sampleGrog = {
 
 def ageSimple(grog, mod=0):
     sampleGrog['age'] += 1          # first age up
-    mod = (round(grog['age'] / 10)) + mod  # generate age-based penalty
+    if grog['age'] % 10 == 0:       # generate age-based penalty
+        mod = grog['age'] // 10 + mod
+    else:
+        mod = grog['age'] // 10 + 1 + mod
     die = arsRoll() + mod           # roll a die, add mod
     print('Aging Roll(' + str(die) + ') at mod ' + str(mod))
     if die <= 2:
