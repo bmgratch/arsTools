@@ -5,13 +5,13 @@
 import shelve, math
 import pyinputplus as pyip
 
-
+## function: Display a single grog
 def displayGrog(grog):
     print('Name: ' + grog['name'])
     if grog['ritual'] < 0:      # only print ritual if there is a ritual
-        print('Age: %s (%s) [LR %s]' % (grog['age'] + grog['appAge'], grog['age'], str(grog['ritual'])))
+        print('Age: %s (%s) [LR %s]' % (grog['age'], grog['age'] + grog['appAge'], str(grog['ritual'])))
     else:
-        print('Age: %s (%s)' % (grog['age'] + grog['appAge'], grog['age']))
+        print('Age: %s (%s)' % (grog['age'], grog['appAge'] + grog['appAge']))
     if grog['ageMod'] != 0:
         print('Other aging mods: %s' % str(grog['ageMod']))
     if grog['pointAge'] > 0:    # only print decrepitude if aging poitns exist
@@ -23,7 +23,7 @@ def displayGrog(grog):
             print('* ' + x)
     print('\n')
 
-
+## Create a new grog with this function
 def createGrog():
     grog = {}
     grog['name'] = input("Give the grog's name:  ")
@@ -37,18 +37,28 @@ def createGrog():
     print('Thanks!\n')
     return(grog)
 
+## function: List all grogs in your list
 def listGrogs(grogList):
     for n in grogList.keys():
         print(n)
     print()
 
-# Load grog file
+## function: select a grog to view from a list
+def viewGrogs(grogList):
+    pass
 
+## function: delete a grog
+def delGrog():
+    print(' (does nothing yet)')
+    pass
+
+# Load grog file
 grogFile = shelve.open('grogs')
 grogs = {}
 for n in grogFile.keys():
     grogs[n] = grogFile[n]
     print('Importing: ' + n)
+    displayGrog(grogFile[n])
 print()
 
 # Begin grog input
@@ -58,10 +68,15 @@ if yn == ('yes'):
     displayGrog(newGrog)
     #grogs.append(newGrog)
     grogs[newGrog['name']] = newGrog
+yn = pyip.inputYesNo("Delete a grog? (y/N) ")
+if yn == ('yes'):
+    delGrog()
 
-print("Here's all your grogs!")
-print('')
-listGrogs(grogs)
+yn = pyip.inputYesNo("List your grog? (y/N) ")
+if yn == ('yes'):
+    print("Here's all your grogs!")
+    print('')
+    listGrogs(grogs)
 
 for n in grogs.keys():
     print('Exporting %s...' % n)
