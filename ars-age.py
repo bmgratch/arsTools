@@ -2,42 +2,6 @@
 # ars-age.py - a program to calculate aging rolls for grogs and covenfolk
 #
 
-<<<<<<< Updated upstream
-import random
-
-sampleGrog = {
-    'name' : "Tyro",
-    'age' : 40,
-    'appAge' : 0,
-    'pointAge' : 0,
-    'history': []}
-
-def ageSimple(grog, mod=0):
-    sampleGrog['age'] += 1          # first age up
-    if grog['age'] % 10 == 0:       # generate age-based penalty
-        mod = grog['age'] // 10 + mod
-    else:
-        mod = grog['age'] // 10 + 1 + mod
-    die = arsRoll() + mod           # roll a die, add mod
-    print('Aging Roll(' + str(die) + ') at mod ' + str(mod))
-    if die <= 2:
-        sampleGrog['appAge'] -= 1
-    elif die <= 9:
-        print('Aged')
-    elif die == 13:
-        print('Age! Crisis!')
-        sampleGrog['pointAge'] = crisis(sampleGrog['pointAge'])
-    elif die <= 17:
-        print('Aged, old!')
-        sampleGrog['pointAge'] += 1
-    elif die <= 21:
-        print('Aged, rather old!')
-        sampleGrog['pointAge'] += 2
-    else:
-        print('Aged aged crisis!')
-        sampleGrog['pointAge'] = crisis(sampleGrog['pointAge'])
-    return(sampleGrog)
-=======
 import random, math, shelve
 grogFile = shelve.open('grogs')
 
@@ -78,7 +42,6 @@ def ageSimple(grog, years=1):       # grog is a grog dict, years are number of y
             grog['ritual'] = 0
         count += 1
     return(grog)
->>>>>>> Stashed changes
 
 def arsRoll(b=0):
     roll = random.randint(0,9)
@@ -87,9 +50,9 @@ def arsRoll(b=0):
     mult = 1
     while roll == 1:
         mult *= 2
-        print('explode! x' + str(mult)) # for testing
+        #print('explode! x' + str(mult)) # for testing
         roll = random.randint(1, 10)
-    print('rolled d10: ' + str(roll))
+    #print('rolled d10: ' + str(roll))  # for testing
     return(roll * mult)
 
 # need some way to check decrepitude for increasing
@@ -110,15 +73,6 @@ def crisis(ap):
     
 
 #### for testing
-<<<<<<< Updated upstream
-
-##for n in range(10):
-##    print(arsRoll())
-
-for n in range(10):
-    print(ageSimple(sampleGrog, 0))
-    print('\n')
-=======
 sampleGrog = {
     'name' : "Tyro",
     'age' : 40,
@@ -152,7 +106,6 @@ def displayGrog(grog):
 ##displayGrog(sampleGrog)
 ##
 ##ageSimple(sampleGrog, 0)
-displayGrog(sampleGrog)
+##displayGrog(sampleGrog)
 
 grogFile.close()
->>>>>>> Stashed changes
