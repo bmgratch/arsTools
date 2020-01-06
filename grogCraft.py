@@ -5,12 +5,6 @@
 import shelve, math
 import pyinputplus as pyip
 
-grogFile = shelve.open('grogs')
-grogs = []
-for n in grogFile.keys():
-    grogs.append(grogFile[n])
-    print('Importing: ' + n)
-print('\n')
 
 def displayGrog(grog):
     print('Name: ' + grog['name'])
@@ -32,24 +26,46 @@ def displayGrog(grog):
 
 def createGrog():
     grog = {}
-    grog['name'] = input("Give the grog's name: ")
-    grog['age'] = pyip.inputInt("How old is the grog?")
-    appAge = pyip.inputInt("How old does the grog look? ")
+    grog['name'] = input("Give the grog's name:  ")
+    grog['age'] = pyip.inputInt("How old is the grog?  ")
+    appAge = pyip.inputInt("How old does the grog look?  ")
     grog['appAge'] = appAge - grog['age']
-    grog['pointAge'] = pyip.inputInt('How many decrepitude points acquired? ')
-    grog['ageMod'] = pyip.inputInt('Total up the lifestyle and virtue modifiers for aging: ')
-    grog['ritual'] = pyip.inputInt("And now add the grog's longevity ritual? ")
+    grog['pointAge'] = pyip.inputInt('How many decrepitude points acquired?  ')
+    grog['ageMod'] = pyip.inputInt('Total up the lifestyle and virtue modifiers for aging:  ')
+    grog['ritual'] = pyip.inputInt("And now add the grog's longevity ritual?  ")
     grog['history'] = []
     print('Thanks!\n\n')
     return(grog)
+
+def listGrogs(grogList):
+    for n in grogList.keys():
+        displayGrog(grogList[n])
+
+# Load grog file
+
+grogFile = shelve.open('grogs')
+grogs = {}
+for n in grogFile.keys():
+    grogs[n] = grogFile[n]
+    print('Importing: ' + n)
+    displayGrog(grogFile[n])
+print('\n')
 
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
 if yn == ('yes'):
     newGrog = createGrog()
     displayGrog(newGrog)
-    grogs.append(newGrog)
-print(grogs)
+    #grogs.append(newGrog)
+    grogs[newGrog['name']] = newGrog
+
+print("Here's all your grogs!")
+print('\n')
+listGrogs(grogs)
+
+for n in grogs.keys():
+    print(n)
+    grogFile[n] = grogs[n]
     
 grogFile.close()
 
