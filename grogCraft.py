@@ -45,14 +45,15 @@ def listGrogs(grogList):
 
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
-    pass
+    print('Select a grog to view:')
+    listGrogs(grogList)
 
 ## function: delete a grog
 def delGrog():
     print(' (does nothing yet)')
     pass
 
-# Load grog file
+# Load grog files
 grogFile = shelve.open('grogs')
 grogs = {}
 for n in grogFile.keys():
@@ -60,6 +61,9 @@ for n in grogFile.keys():
     print('Importing: ' + n)
     displayGrog(grogFile[n])
 print()
+
+#list of functions:
+menu = ['view', 'create', 'list', 'delete']
 
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
@@ -78,6 +82,7 @@ if yn == ('yes'):
     print('')
     listGrogs(grogs)
 
+# Closing grog files
 for n in grogs.keys():
     print('Exporting %s...' % n)
     grogFile[n] = grogs[n]
