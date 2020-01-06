@@ -65,10 +65,11 @@ for n in grogFile.keys():
 print()
 
 #list of functions:
-menu = ['view', 'create', 'list', 'delete']
+menu = ['view', 'create', 'list', 'delete', 'quit']
 
 print(menu)
 menuSelect = input("Select from Menu:  ")
+
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
 if yn == ('yes'):
@@ -90,6 +91,7 @@ if yn == ('yes'):
 for n in grogs.keys():
     print('Exporting %s...' % n)
     grogFile[n] = grogs[n]
+
     
 grogFile.close()
 
