@@ -68,7 +68,7 @@ print()
 menu = ['view', 'create', 'list', 'delete', 'quit']
 
 print(menu)
-menuSelect = input("Select from Menu:  ")
+menuSelect = input("Select from Menu:  (does nothing yet)")
 
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
