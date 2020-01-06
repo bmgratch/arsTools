@@ -34,12 +34,13 @@ def createGrog():
     grog['ageMod'] = pyip.inputInt('Total up the lifestyle and virtue modifiers for aging:  ')
     grog['ritual'] = pyip.inputInt("And now add the grog's longevity ritual?  ")
     grog['history'] = []
-    print('Thanks!\n\n')
+    print('Thanks!\n')
     return(grog)
 
 def listGrogs(grogList):
     for n in grogList.keys():
-        displayGrog(grogList[n])
+        print(n)
+    print()
 
 # Load grog file
 
@@ -48,8 +49,7 @@ grogs = {}
 for n in grogFile.keys():
     grogs[n] = grogFile[n]
     print('Importing: ' + n)
-    displayGrog(grogFile[n])
-print('\n')
+print()
 
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
@@ -60,11 +60,11 @@ if yn == ('yes'):
     grogs[newGrog['name']] = newGrog
 
 print("Here's all your grogs!")
-print('\n')
+print('')
 listGrogs(grogs)
 
 for n in grogs.keys():
-    print(n)
+    print('Exporting %s...' % n)
     grogFile[n] = grogs[n]
     
 grogFile.close()
