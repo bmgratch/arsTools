@@ -49,32 +49,36 @@ def viewGrogs(grogList):
     listGrogs(grogList)
 
 ## function: delete a grog
-def delGrog():
+def delGrog(grogList):
+    deleted = input('Which grog do you want to delete?  ')
     print(' (does nothing yet)')
+    if deleted.lower() in grogList.keys():
+        print('Deleting %s' % deleted)
     pass
 
 # Load grog files
 grogFile = shelve.open('grogs')
 grogs = {}
 for n in grogFile.keys():
-    grogs[n] = grogFile[n]
+    grogs[n.lower()] = grogFile[n]
     print('Importing: ' + n)
-    displayGrog(grogFile[n])
 print()
 
 #list of functions:
 menu = ['view', 'create', 'list', 'delete']
 
+print(menu)
+menuSelect = input("Select from Menu:  ")
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
 if yn == ('yes'):
     newGrog = createGrog()
     displayGrog(newGrog)
     #grogs.append(newGrog)
-    grogs[newGrog['name']] = newGrog
+    grogs[newGrog['name'].lower()] = newGrog
 yn = pyip.inputYesNo("Delete a grog? (y/N) ")
 if yn == ('yes'):
-    delGrog()
+    delGrog(grogs)
 
 yn = pyip.inputYesNo("List your grog? (y/N) ")
 if yn == ('yes'):
