@@ -7,7 +7,7 @@ grogFile = shelve.open('grogs')
 
 def ageSimple(grog, years=1):       # grog is a grog dict, years are number of years to age
     count = 0                       # Counter to track number of times done
-    mod = grog['ritual'] + grog['age mod']
+    mod = grog['ritual'] + grog['ageMod']
     grog['history'] = []            # clear history for easier reading
     while count < years:
         grog['age'] += 1            # first age up
@@ -78,7 +78,7 @@ sampleGrog = {
     'age' : 40,
     'appAge' : 0,
     'pointAge' : 1,     
-    'age mod' : 0,
+    'ageMod' : -1,
     'ritual': -8,
     'history': [] }
 
@@ -88,6 +88,8 @@ def displayGrog(grog):
         print('Age: %s (%s) [LR %s]' % (grog['age'] + grog['appAge'], grog['age'], str(grog['ritual'])))
     else:
         print('Age: %s (%s)' % (grog['age'] + grog['appAge'], grog['age']))
+    if grog['ageMod'] != 0:
+        print('Other aging mods: %s' % str(grog['ageMod']))
     if grog['pointAge'] > 0:    # only print decrepitude if aging poitns exist
         decr = math.floor(((math.sqrt(8*(grog['pointAge']/5)+1)-1)/2)) # decrepitude = ((sqrt(8*(ap/5)+1)-1)/2)
         print('Decrepitude: %s (%s)' % (str(decr), grog['pointAge']) )
@@ -106,6 +108,6 @@ def displayGrog(grog):
 ##displayGrog(sampleGrog)
 ##
 ##ageSimple(sampleGrog, 0)
-##displayGrog(sampleGrog)
+displayGrog(sampleGrog)
 
 grogFile.close()
