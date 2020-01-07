@@ -26,7 +26,12 @@ def displayGrog(grog):
 ## Create a new grog with this function
 def createGrog():
     grog = {}
-    grog['name'] = input("Give the grog's name:  ")
+    while True:
+        grog['name'] = input("Give the grog's name:  ")
+        if grog['name'] != '':
+            continue
+        else:
+            print('Grog name cannot be blank...')
     grog['age'] = pyip.inputInt("How old is the grog?  ")
     appAge = pyip.inputInt("How old does the grog look?  ")
     grog['appAge'] = appAge - grog['age']
@@ -39,25 +44,42 @@ def createGrog():
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
+    if len(grogList) == 0:
+        print('No grogs yet!\n')
+        return
+
     for n in grogList.keys():
         print(n)
     print()
 
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
+    if len(grogList) == 0:
+        print('No grogs yet!\n')
+        return
     print('Select a grog to view:')
     listGrogs(grogList)
     grog = input('Selection:  ').lower()
     if grog in grogList.keys():
         displayGrog(grogList[grog])
+    elif grog == '':
+        return
+    else:
+        print('Grog does not exist...')
+        return
 
 ## function: delete a grog
 def delGrog(grogList):
+    if len(grogList) == 0:
+        print('No grogs yet!\n')
+        return
     deleted = input('Which grog do you want to delete?  ').lower()
     if deleted.lower() in grogList.keys():
         print('Deleting %s' % deleted)
         del grogList[deleted]
+    if deleted.lower() in grogFile.keys():
         del grogFile[deleted]
+    return
 
 # Load grog files
 grogFile = shelve.open('grogs')
