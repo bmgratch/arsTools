@@ -50,7 +50,7 @@ def viewGrogs(grogList):
 
 ## function: delete a grog
 def delGrog(grogList):
-    deleted = input('Which grog do you want to delete?  ')
+    deleted = input('Which grog do you want to delete?  ').lower()
     print(' (does nothing yet)')
     if deleted.lower() in grogList.keys():
         print('Deleting %s' % deleted)
@@ -67,9 +67,16 @@ print()
 
 #list of functions:
 menu = ['view', 'create', 'list', 'delete', 'quit']
-
-print(menu)
-menuSelect = input("Select from Menu:  (does nothing yet)")
+while True:
+    print(menu)
+    menuSelect = input("Select from Menu:  ")
+    if menuSelect.lower() in menu:
+        print(menuSelect)
+        print()
+        if menuSelect.lower() == 'quit':
+            break
+    else:
+        print('Select from the menu, please.\n')
 
 # Begin grog input
 yn = pyip.inputYesNo("Enter new grog? (y/N) ")
