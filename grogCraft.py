@@ -21,7 +21,7 @@ def displayGrog(grog):
         print('Aging History:')
         for x in grog['history']:
             print('* ' + x)
-    print('\n')
+    print()
 
 ## Create a new grog with this function
 def createGrog():
@@ -47,6 +47,9 @@ def listGrogs(grogList):
 def viewGrogs(grogList):
     print('Select a grog to view:')
     listGrogs(grogList)
+    grog = input('Selection:  ').lower()
+    if grog in grogList.keys():
+        displayGrog(grogList[grog])
 
 ## function: delete a grog
 def delGrog(grogList):
@@ -80,7 +83,7 @@ while True:
             listGrogs(grogs)
         elif menuSelect.lower() == 'create':
             newGrog = createGrog()              # grog creation
-            grogs[newGrog['name'].lower()] = newgrog
+            grogs[newGrog['name'].lower()] = newGrog
         elif menuSelect.lower() == 'delete':
             delGrog(grogs)
     else:
