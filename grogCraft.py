@@ -14,7 +14,7 @@ def displayGrog(grog):
         print('Age: %s (%s)' % (grog['age'], grog['appAge'] + grog['appAge']))
     if grog['ageMod'] != 0:
         print('Other aging mods: %s' % str(grog['ageMod']))
-    if grog['pointAge'] > 0:    # only print decrepitude if aging poitns exist
+    if grog['pointAge'] > 0:    # only print decrepitude if aging points exist
         decr = math.floor(((math.sqrt(8*(grog['pointAge']/5)+1)-1)/2)) # decrepitude = ((sqrt(8*(ap/5)+1)-1)/2)
         print('Decrepitude: %s (%s)' % (str(decr), grog['pointAge']) )
     if len(grog['history']) > 0:    # only print history if there is history
@@ -54,7 +54,8 @@ def delGrog(grogList):
     print(' (does nothing yet)')
     if deleted.lower() in grogList.keys():
         print('Deleting %s' % deleted)
-    pass
+        del grogList[deleted]
+        del grogFile[deleted]
 
 # Load grog files
 grogFile = shelve.open('grogs')
