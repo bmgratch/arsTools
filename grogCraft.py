@@ -51,7 +51,6 @@ def viewGrogs(grogList):
 ## function: delete a grog
 def delGrog(grogList):
     deleted = input('Which grog do you want to delete?  ').lower()
-    print(' (does nothing yet)')
     if deleted.lower() in grogList.keys():
         print('Deleting %s' % deleted)
         del grogList[deleted]
@@ -65,35 +64,44 @@ for n in grogFile.keys():
     print('Importing: ' + n)
 print()
 
-#list of functions:
+# list of functions:
 menu = ['view', 'create', 'list', 'delete', 'quit']
 while True:
     print(menu)
-    menuSelect = input("Select from Menu:  ")
+    menuSelect = input("Select from Menu:  ")   # Menu select begins
     if menuSelect.lower() in menu:
         print(menuSelect)
         print()
         if menuSelect.lower() == 'quit':
             break
+        elif menuSelect.lower() == 'view':
+            viewGrogs(grogs)
+        elif menuSelect.lower() == 'list':
+            listGrogs(grogs)
+        elif menuSelect.lower() == 'create':
+            newGrog = createGrog()              # grog creation
+            grogs[newGrog['name'].lower()] = newgrog
+        elif menuSelect.lower() == 'delete':
+            delGrog(grogs)
     else:
         print('Select from the menu, please.\n')
 
 # Begin grog input
-yn = pyip.inputYesNo("Enter new grog? (y/N) ")
-if yn == ('yes'):
-    newGrog = createGrog()
-    displayGrog(newGrog)
-    #grogs.append(newGrog)
-    grogs[newGrog['name'].lower()] = newGrog
-yn = pyip.inputYesNo("Delete a grog? (y/N) ")
-if yn == ('yes'):
-    delGrog(grogs)
-
-yn = pyip.inputYesNo("List your grog? (y/N) ")
-if yn == ('yes'):
-    print("Here's all your grogs!")
-    print('')
-    listGrogs(grogs)
+##yn = pyip.inputYesNo("Enter new grog? (y/N) ")
+##if yn == ('yes'):
+##    newGrog = createGrog()
+##    displayGrog(newGrog)
+##    #grogs.append(newGrog)
+##    grogs[newGrog['name'].lower()] = newGrog
+##yn = pyip.inputYesNo("Delete a grog? (y/N) ")
+##if yn == ('yes'):
+##    delGrog(grogs)
+##
+##yn = pyip.inputYesNo("List your grog? (y/N) ")
+##if yn == ('yes'):
+##    print("Here's all your grogs!")
+##    print('')
+##    listGrogs(grogs)
 
 # Closing grog files
 for n in grogs.keys():
