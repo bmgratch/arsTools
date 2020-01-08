@@ -3,7 +3,6 @@
 #
 
 import random, math, shelve
-grogFile = shelve.open('grogs')
 
 def ageSimple(grog, years=1):       # grog is a grog dict, years are number of years to age
     count = 0                       # Counter to track number of times done
@@ -15,39 +14,40 @@ def ageSimple(grog, years=1):       # grog is a grog dict, years are number of y
         mod = math.ceil(grog['age'] // 10 + mod) # generate age-based penalty
 
         die = arsRoll() + mod           # roll a die, add mod
-        #print('Aging Roll(' + str(die) + ') at mod ' + str(mod))  #debug
         if grog['age'] < 35:
             if die <= 2:
                 grog['appAge'] -= 1
-                grog['history'].append('No apparent aging / ' + str(die))
-                history.append('No apparent aging / ' + str(die))
+                grog['history'].append('No apparent aging (%s)/ %s' % (str(grog['age']), str(die)))
+                history.append('No apparent aging (%s)/ %s' % (str(grog['age']), str(die)))
         if die <= 2:
             grog['appAge'] -= 1
-            grog['history'].append('No apparent aging / ' + str(die))
-            history.append('No apparent aging / ' + str(die))
+            grog['history'].append('No apparent aging (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('No apparent aging (%s)/ %s' % (str(grog['age']), str(die)))
         elif die <= 9:
-            grog['history'].append('Aged / ' + str(die))
-            history.append('Aged / ' + str(die))
+            grog['history'].append('Aged (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('Aged (%s)/ %s' % (str(grog['age']), str(die)))
         elif die == 13:
             grog['pointAge'] = crisis(grog['pointAge'])
-            grog['history'].append('Crisis! / ' + str(die))
-            history.append('Crisis / ' + str(die))
+            grog['history'].append('Crisis! (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('Crisis (%s)/ %s' % (str(grog['age']), str(die)))
             grog['ritual'] = 0
         elif die <= 17:
             grog['pointAge'] += 1
-            grog['history'].append('Aged in stat! / ' + str(die))
-            history.append('Aged in stat! / ' + str(die))
+            grog['history'].append('Aged in stat! (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('Aged in stat! (%s)/ %s' % (str(grog['age']), str(die)))
         elif die <= 21:
             grog['pointAge'] += 2
-            grog['history'].append('Aged in two stats / ' + str(die))
-            history.append('Aged in two stats / ' + str(die))
+            grog['history'].append('Aged in two stats (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('Aged in two stats (%s)/ %s' % (str(grog['age']), str(die)))
         else:
             grog['pointAge'] = crisis(grog['pointAge'])
-            grog['history'].append('Crisis! / ' + str(die))
-            history.append('Crisis! / ' + str(die))
+            grog['history'].append('Crisis! (%s)/ %s' % (str(grog['age']), str(die)))
+            history.append('Crisis! (%s)/ %s' % (str(grog['age']), str(die)))
             grog['ritual'] = 0
         count += 1
-    print(history)
+    for x in history:
+        print(' * %s' % x)
+    print('')
     return(grog)
 
 def arsRoll(b=0):
@@ -77,10 +77,16 @@ def crisis(ap):
         return(75)
     else:
         return(105)
-    
 
+## menu display function    
+def displayMenu():
+    print('- 1 - [D]isplay loaded grogs')
+    print('- 2 - [S]ingle grog aging')
+    print('- 3 - [A]ll grogs aging')
+    print('- 4 - [Q]uit')
+    print()  
 
-
+## Grog display function
 def displayGrog(grog):
     print('Name: ' + grog['name'])
     if grog['ritual'] < 0:      # only print ritual if there is a ritual
@@ -96,11 +102,16 @@ def displayGrog(grog):
         print('Aging History:')
         for x in grog['history']:
             print('* ' + x)
-    print('\n')
+    print('')
 
 
-## open grogs
+## Load grog files
 grogFile = shelve.open('grogs')
+grogs = {}
+for n in grogFile.keys():
+    grogs[n.lower()] = grogFile[n]
+    print('Importing: ' + n)
+print()
 
 #### for testing
 sampleGrog = {
@@ -112,8 +123,16 @@ sampleGrog = {
     'ritual': -8,
     'history': [] }
 
-displayGrog(sampleGrog)
-ageSimple(sampleGrog)
+displayMenu()
+print('Debug: Printing loaded grogs')
+for g in grogs.keys():
+    displayGrog(grogs[g])
+    ## TODO: Test aging for multiple grogs.
 
 ## save and close grogs
+print('Saving disabled during testing.')
+##for g in grogs.keys():
+##    print('Exporting %s...' % g)
+##    grogFile[g] = grogs[g]
+print()      
 grogFile.close()
