@@ -16,29 +16,38 @@ def ageSimple(grog, years=1):       # grog is a grog dict, years are number of y
 
         die = arsRoll() + mod           # roll a die, add mod
         #print('Aging Roll(' + str(die) + ') at mod ' + str(mod))  #debug
-        if age < 35:
+        if grog['age'] < 35:
             if die <= 2:
                 grog['appAge'] -= 1
+                grog['history'].append('No apparent aging / ' + str(die))
+                history.append('No apparent aging / ' + str(die))
         if die <= 2:
             grog['appAge'] -= 1
             grog['history'].append('No apparent aging / ' + str(die))
+            history.append('No apparent aging / ' + str(die))
         elif die <= 9:
             grog['history'].append('Aged / ' + str(die))
+            history.append('Aged / ' + str(die))
         elif die == 13:
             grog['pointAge'] = crisis(grog['pointAge'])
             grog['history'].append('Crisis! / ' + str(die))
+            history.append('Crisis / ' + str(die))
             grog['ritual'] = 0
         elif die <= 17:
             grog['pointAge'] += 1
             grog['history'].append('Aged in stat! / ' + str(die))
+            history.append('Aged in stat! / ' + str(die))
         elif die <= 21:
             grog['pointAge'] += 2
             grog['history'].append('Aged in two stats / ' + str(die))
+            history.append('Aged in two stats / ' + str(die))
         else:
             grog['pointAge'] = crisis(grog['pointAge'])
             grog['history'].append('Crisis! / ' + str(die))
+            history.append('Crisis! / ' + str(die))
             grog['ritual'] = 0
         count += 1
+    print(history)
     return(grog)
 
 def arsRoll(b=0):
@@ -70,15 +79,7 @@ def crisis(ap):
         return(105)
     
 
-#### for testing
-sampleGrog = {
-    'name' : "Tyro",
-    'age' : 40,
-    'appAge' : 40,
-    'pointAge' : 1,     
-    'ageMod' : -1,
-    'ritual': -8,
-    'history': [] }
+
 
 def displayGrog(grog):
     print('Name: ' + grog['name'])
@@ -97,15 +98,22 @@ def displayGrog(grog):
             print('* ' + x)
     print('\n')
 
-##displayGrog(sampleGrog)
-##
-##ageSimple(sampleGrog, 1)
-##displayGrog(sampleGrog)
-##
-##ageSimple(sampleGrog, 5)
-##displayGrog(sampleGrog)
-##
-##ageSimple(sampleGrog, 0)
-displayGrog(sampleGrog)
 
+## open grogs
+grogFile = shelve.open('grogs')
+
+#### for testing
+sampleGrog = {
+    'name' : "Tyro",
+    'age' : 40,
+    'appAge' : 40,
+    'pointAge' : 1,     
+    'ageMod' : -1,
+    'ritual': -8,
+    'history': [] }
+
+displayGrog(sampleGrog)
+ageSimple(sampleGrog)
+
+## save and close grogs
 grogFile.close()
