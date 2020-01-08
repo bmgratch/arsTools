@@ -9,9 +9,9 @@ import pyinputplus as pyip
 def displayGrog(grog):
     print('Name: ' + grog['name'])
     if grog['ritual'] < 0:      # only print ritual if there is a ritual
-        print('Age: %s (%s) [LR %s]' % (grog['age'], grog['age'] + grog['appAge'], str(grog['ritual'])))
+        print('Age: %s (%s) [LR %s]' % (grog['age'], grog['appAge'], str(grog['ritual'])))
     else:
-        print('Age: %s (%s)' % (grog['age'], grog['appAge'] + grog['appAge']))
+        print('Age: %s (%s)' % (grog['age'], grog['appAge']))
     if grog['ageMod'] != 0:
         print('Other aging mods: %s' % str(grog['ageMod']))
     if grog['pointAge'] > 0:    # only print decrepitude if aging points exist
@@ -24,17 +24,18 @@ def displayGrog(grog):
     print()
 
 ## Create a new grog with this function
-def createGrog():
+def createGrog(grogsList):
     grog = {}
-    while True:
+    grog['name'] = ''
+    while grog['name'] == '':
         grog['name'] = input("Give the grog's name:  ")
-        if grog['name'] != '':
-            continue
-        else:
+        if grog['name'] == '':
             print('Grog name cannot be blank...')
+        elif grog['name'] in grogsList.keys():
+            print('This grog name already exists.')
+            grog['name'] = ''           
     grog['age'] = pyip.inputInt("How old is the grog?  ")
-    appAge = pyip.inputInt("How old does the grog look?  ")
-    grog['appAge'] = appAge - grog['age']
+    grog['appAge'[ = pyip.inputInt("How old does the grog look?  ")
     grog['pointAge'] = pyip.inputInt('How many decrepitude points acquired?  ')
     grog['ageMod'] = pyip.inputInt('Total up the lifestyle and virtue modifiers for aging:  ')
     grog['ritual'] = pyip.inputInt("And now add the grog's longevity ritual?  ")
@@ -104,7 +105,7 @@ while True:
         elif menuSelect.lower() == 'list':
             listGrogs(grogs)
         elif menuSelect.lower() == 'create':
-            newGrog = createGrog()              # grog creation
+            newGrog = createGrog(grogs)              # grog creation
             grogs[newGrog['name'].lower()] = newGrog
         elif menuSelect.lower() == 'delete':
             delGrog(grogs)
