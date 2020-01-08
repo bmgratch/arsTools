@@ -8,35 +8,33 @@ grogFile = shelve.open('grogs')
 def ageSimple(grog, years=1):       # grog is a grog dict, years are number of years to age
     count = 0                       # Counter to track number of times done
     mod = grog['ritual'] + grog['ageMod']
-    grog['history'] = []            # clear history for easier reading
+    history = []
     while count < years:
         grog['age'] += 1            # first age up
+        grog['appAge'] += 1
         mod = math.ceil(grog['age'] // 10 + mod) # generate age-based penalty
 
         die = arsRoll() + mod           # roll a die, add mod
         #print('Aging Roll(' + str(die) + ') at mod ' + str(mod))  #debug
+        if age < 35:
+            if die <= 2:
+                grog['appAge'] -= 1
         if die <= 2:
             grog['appAge'] -= 1
-            #print('No aging!')      # debug
             grog['history'].append('No apparent aging / ' + str(die))
         elif die <= 9:
-            #print('Aged')           # debug
             grog['history'].append('Aged / ' + str(die))
         elif die == 13:
-            #print('Age! Crisis!')   #debug
             grog['pointAge'] = crisis(grog['pointAge'])
             grog['history'].append('Crisis! / ' + str(die))
             grog['ritual'] = 0
         elif die <= 17:
-            #print('Aged, old!')     # debug
             grog['pointAge'] += 1
             grog['history'].append('Aged in stat! / ' + str(die))
         elif die <= 21:
-            #print('Aged, rather old!')  # debug
             grog['pointAge'] += 2
             grog['history'].append('Aged in two stats / ' + str(die))
         else:
-            #print('Aged aged crisis!')  # debug
             grog['pointAge'] = crisis(grog['pointAge'])
             grog['history'].append('Crisis! / ' + str(die))
             grog['ritual'] = 0
@@ -76,7 +74,7 @@ def crisis(ap):
 sampleGrog = {
     'name' : "Tyro",
     'age' : 40,
-    'appAge' : 0,
+    'appAge' : 40,
     'pointAge' : 1,     
     'ageMod' : -1,
     'ritual': -8,
@@ -85,9 +83,9 @@ sampleGrog = {
 def displayGrog(grog):
     print('Name: ' + grog['name'])
     if grog['ritual'] < 0:      # only print ritual if there is a ritual
-        print('Age: %s (%s) [LR %s]' % (grog['age'] + grog['appAge'], grog['age'], str(grog['ritual'])))
+        print('Age: %s (%s) [LR %s]' % (grog['age'], grog['appAge'], str(grog['ritual'])))
     else:
-        print('Age: %s (%s)' % (grog['age'] + grog['appAge'], grog['age']))
+        print('Age: %s (%s)' % (grog['age'], grog['appAge']))
     if grog['ageMod'] != 0:
         print('Other aging mods: %s' % str(grog['ageMod']))
     if grog['pointAge'] > 0:    # only print decrepitude if aging poitns exist
