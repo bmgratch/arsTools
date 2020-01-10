@@ -35,7 +35,7 @@ def createGrog(grogsList):
             print('This grog name already exists.')
             grog['name'] = ''           
     grog['age'] = pyip.inputInt("How old is the grog?  ")
-    grog['appAge'[ = pyip.inputInt("How old does the grog look?  ")
+    grog['appAge'] = pyip.inputInt("How old does the grog look?  ")
     grog['pointAge'] = pyip.inputInt('How many decrepitude points acquired?  ')
     grog['ageMod'] = pyip.inputInt('Total up the lifestyle and virtue modifiers for aging:  ')
     grog['ritual'] = pyip.inputInt("And now add the grog's longevity ritual?  ")
