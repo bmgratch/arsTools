@@ -123,7 +123,25 @@ sampleGrog = {
     'ritual': -8,
     'history': [] }
 
-displayMenu()
+validMenu = ['a','s', 'd', 'q', '1', '2', '3', '4'] # for menu selection
+select = 'x'
+while select != ('q' or '4'):
+    while select not in validMenu:
+        displayMenu()
+        print('Select from menu: ')
+        select = input()
+    if select == ('1' or 'd'):
+        print(' NEED display logic')
+        select = 'x'
+    elif select == ('2' or 's'):
+        print(' NEED single grog logic')
+        select = 'x'
+    elif select == ('3' or 'a'):
+        print(' NEED all grog logic')
+        select = 'x'
+    else:
+        print(' NEED quit logic')
+        break
 print('Debug: Printing loaded grogs')
 for g in grogs.keys():
     displayGrog(grogs[g])
