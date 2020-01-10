@@ -3,6 +3,7 @@
 #
 
 import random, math, shelve
+import pyinputplus as pyip
 
 def ageSimple(grog, years=1):       # grog is a grog dict, years are number of years to age
     count = 0                       # Counter to track number of times done
@@ -84,7 +85,20 @@ def displayMenu():
     print('- 2 - [S]ingle grog aging')
     print('- 3 - [A]ll grogs aging')
     print('- 4 - [Q]uit')
-    print()  
+    print()
+    
+## Grog list function
+def listGrogs(grogs):
+    print("PRINTING GROGS....")
+    for g in grogs.keys():
+        print(g)
+
+def ageGrog(grog):
+    print('Aging %s... how many years?' % grog['name'])
+    yr = pyip.inputInt()
+    if yr > 0:
+        ## TODO LOGIC HERE
+
 
 ## Grog display function
 def displayGrog(grog):
@@ -122,6 +136,7 @@ sampleGrog = {
     'ageMod' : -1,
     'ritual': -8,
     'history': [] }
+grogs['tyro'] = sampleGrog
 
 validMenu = ['a','s', 'd', 'q', '1', '2', '3', '4'] # for menu selection
 select = 'x'
@@ -129,18 +144,25 @@ while select != ('q' or '4'):
     while select not in validMenu:
         displayMenu()
         print('Select from menu: ')
-        select = input()
-    if select == ('1' or 'd'):
+        select = input().lower()
+    if select == ('1' or 'd'):          # list grogs
         print(' NEED display logic')
+        listGrogs(grogs)
         select = 'x'
-    elif select == ('2' or 's'):
+    elif select == ('2' or 's'):        # age a grog
         print(' NEED single grog logic')
+        print('Which grog to view?')
+        selGrog = input().lower()
+        if selGrog in grogs.keys():
+            print('Aging %s' % selGrog)
+        else:
+            print('Grog not in list')
         select = 'x'
-    elif select == ('3' or 'a'):
+    elif select == ('3' or 'a'):        # age all grogs
         print(' NEED all grog logic')
         select = 'x'
     else:
-        print(' NEED quit logic')
+        print(' NEED quit logic')       # quitting
         break
 print('Debug: Printing loaded grogs')
 for g in grogs.keys():
