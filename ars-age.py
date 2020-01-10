@@ -97,7 +97,10 @@ def ageGrog(grog):
     print('Aging %s... how many years?' % grog['name'])
     yr = pyip.inputInt()
     if yr > 0:
+        simpleAge(grog, yr)
         ## TODO LOGIC HERE
+    elif yr <= 0:
+        print('Can only age positive, cancelled.')
 
 
 ## Grog display function
