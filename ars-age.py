@@ -97,7 +97,7 @@ def ageGrog(grog):
     print('Aging %s... how many years?' % grog['name'])
     yr = pyip.inputInt()
     if yr > 0:
-        simpleAge(grog, yr)
+        ageSimple(grog, yr)
         ## TODO LOGIC HERE
     elif yr <= 0:
         print('Can only age positive, cancelled.')
@@ -154,10 +154,11 @@ while select != ('q' or '4'):
         select = 'x'
     elif select == ('2' or 's'):        # age a grog
         print(' NEED single grog logic')
-        print('Which grog to view?')
+        print('Which grog to age?')
         selGrog = input().lower()
         if selGrog in grogs.keys():
             print('Aging %s' % selGrog)
+            ageGrog(grogs[selGrog])
         else:
             print('Grog not in list')
         select = 'x'
