@@ -98,9 +98,9 @@ def ageGrog(grog):
     yr = pyip.inputInt()
     if yr > 0:
         ageSimple(grog, yr)
-        ## TODO LOGIC HERE
     elif yr <= 0:
         print('Can only age positive, cancelled.')
+
 
 
 ## Grog display function
@@ -153,7 +153,6 @@ while select != ('q' or '4'):
         listGrogs(grogs)
         select = 'x'
     elif select == ('2' or 's'):        # age a grog
-        print(' NEED single grog logic')
         print('Which grog to age?')
         selGrog = input().lower()
         if selGrog in grogs.keys():
@@ -163,10 +162,18 @@ while select != ('q' or '4'):
             print('Grog not in list')
         select = 'x'
     elif select == ('3' or 'a'):        # age all grogs
-        print(' NEED all grog logic')
+        print('This will age every loaded grog.')
+        print('Once you\'re sure, type in the number. (Put a 0 to not age)')
+        yrAll = pyip.inputInt("How many years to age?  ")
+        if yrAll < 1:
+            print('Cancelling aging.')
+        else:
+            for g in grogs:
+                print(' Aging %s,...' % g)
+                ageSimple(grogs[g], yrAll)
         select = 'x'
     else:
-        print(' NEED quit logic')       # quitting
+        print('Quitting now!')       # quitting
         break
 print('Debug: Printing loaded grogs')
 for g in grogs.keys():
