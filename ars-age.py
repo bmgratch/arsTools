@@ -148,11 +148,11 @@ while select != ('q' or '4'):
         displayMenu()
         print('Select from menu: ')
         select = input().lower()
-    if select == ('1' or 'd'):          # list grogs
+    if select == '1' or select == 'd':          # list grogs
         print(' NEED display logic')
         listGrogs(grogs)
         select = 'x'
-    elif select == ('2' or 's'):        # age a grog
+    elif select == '2' or select == 's':        # age a grog
         print('Which grog to age?')
         selGrog = input().lower()
         if selGrog in grogs.keys():
@@ -161,7 +161,7 @@ while select != ('q' or '4'):
         else:
             print('Grog not in list')
         select = 'x'
-    elif select == ('3' or 'a'):        # age all grogs
+    elif select == '3' or select == 'a':        # age all grogs
         print('This will age every loaded grog.')
         print('Once you\'re sure, type in the number. (Put a 0 to not age)')
         yrAll = pyip.inputInt("How many years to age?  ")
@@ -172,9 +172,11 @@ while select != ('q' or '4'):
                 print(' Aging %s,...' % g)
                 ageSimple(grogs[g], yrAll)
         select = 'x'
-    else:
+    elif select == '4' or select == 'q':
         print('Quitting now!')       # quitting
         break
+    else:
+        continue
 print('Debug: Printing loaded grogs')
 for g in grogs.keys():
     displayGrog(grogs[g])
