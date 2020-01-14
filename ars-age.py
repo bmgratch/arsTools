@@ -169,7 +169,7 @@ while select != ('q' or '4'):
             print('Cancelling aging.')
         else:
             for g in grogs:
-                print(' Aging %s,...' % g)
+                print(' Aging %s, %s years...' % (g, yrAll))
                 ageSimple(grogs[g], yrAll)
         select = 'x'
     elif select == '4' or select == 'q':
