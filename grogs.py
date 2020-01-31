@@ -29,15 +29,3 @@ class Grog:
             for x in self.history:
                 print(' * ' + x)
         print('')
-
-## Sample grog display for working.
-
-##Name: tyro
-## Age: 40 (40) [LR -4]
-## Other aging mods: -1
-## Decrepitude: 0 (1)
-## Aging History:
-## * 40: no apparent aging
-
-tyro = Grog('tyro', 40, 40, -4, -1, 1, ['40: no apparent aging'])
-tyro.display()
