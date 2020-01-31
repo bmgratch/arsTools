@@ -2,3 +2,4 @@
 *.bak
 *.dat
 *.dir
+__pycache__/grogs.cpython-38.pyc
