@@ -2,7 +2,7 @@
 # grogCraft.py - a program to make grogs for aging
 #
 
-import shelve, math
+import shelve
 from grogs import Grog
 import pyinputplus as pyip
 
@@ -14,18 +14,22 @@ import pyinputplus as pyip
 
 ## Create a new grog with this function
 def createGrog(grogsList):
+    print("Make a new grog") #placeholder
     pass
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
+    print("List the grogs") # placeholder
     pass
 
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
+    print("view single grog") #placeholder
     pass
 
 ## function: delete a grog
 def delGrog(grogList):
+    print("Delete single grog") # placeholder
     pass
 
 ## function: print the selection menu
@@ -65,6 +69,7 @@ while (selection != '0') and (selection != 'q'):
     ## TODO list all
     ## Todo view one
     ## todo create
+    ## TODO Modify?
     ## todo delete
 
 # Closing grog files
