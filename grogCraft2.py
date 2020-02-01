@@ -47,7 +47,7 @@ def menuSelect():
     while True:
         printMenu()
         opt = input("Select from menu:  ").lower()
-        if opt in menu:
+        if opt[0] in menu:
             return(opt[0])
         else:
             print('INVALID SELECTION')
@@ -67,10 +67,18 @@ while (selection != '0') and (selection != 'q'):
     print(selection)    # should run until quit. Print temp.
     ## TODO actually enact choices.
     ## TODO list all
+    if (selection == '1' or selection == 'l'):
+        print("LIST GROGS")
     ## Todo view one
+    elif (selection == '2' or selection == 'v'):
+        print("VIEW A GROG")
     ## todo create
+    elif (selection == '3' or selection == 'c'):
+        print("CREATE A GROG")
     ## TODO Modify?
     ## todo delete
+    elif (selection == '4' or selection == 'd'):
+        print("DELETE AN GROG")
 
 # Closing grog files
 for n in grogs.keys():
