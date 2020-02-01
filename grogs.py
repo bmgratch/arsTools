@@ -29,3 +29,14 @@ class Grog:
             for x in self.history:
                 print(' * ' + x)
         print('')
+
+#csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
+def csvGrog(gList):
+    newGrog = Grog(gList[0],
+                int(gList[1]),
+                int(gList[2]),
+                int(gList[3]),
+                int(gList[4]),
+                int(gList[5]),
+                list(gList[6])) #this one doesn't work....
+    return newGrog
