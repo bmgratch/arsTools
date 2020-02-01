@@ -28,6 +28,26 @@ def viewGrogs(grogList):
 def delGrog(grogList):
     pass
 
+## function: print the selection menu
+def printMenu():
+    print(" 1) [l]ist all grogs")
+    print(" 2) [v]iew a grog")
+    print(" 3) [c]reate a grog")
+    print(" 4) [d]elete a grog")
+    print(" 0) [q]uit")
+    return
+
+## function: make selection from the menu
+def menuSelect():
+    menu = '01234cdlqv' # string of available options from the menu
+    while True:
+        printMenu()
+        opt = input("Select from menu:  ").lower()
+        if opt in menu:
+            return(opt[0])
+        else:
+            print('INVALID SELECTION')
+
 # Load grog files
 grogFile = shelve.open('grogs')
 grogs = {}
@@ -36,28 +56,16 @@ for n in grogFile.keys():
     print('Importing: ' + n)
 print()
 
-# list of functions:
-menu = ['view', 'create', 'list', 'delete', 'quit']
-while True:
-    print(menu)
-    menuSelect = input("Select from Menu:  ")   # Menu select begins
-    if menuSelect.lower() in menu:
-        print(menuSelect)
-        print()
-        if menuSelect.lower() == 'quit':
-            break
-        elif menuSelect.lower() == 'view':
-            viewGrogs(grogs)
-        elif menuSelect.lower() == 'list':
-            listGrogs(grogs)
-        elif menuSelect.lower() == 'create':
-            newGrog = createGrog(grogs)              # grog creation
-            grogs[newGrog['name'].lower()] = newGrog
-        elif menuSelect.lower() == 'delete':
-            delGrog(grogs)
-    else:
-        print('Select from the menu, please.\n')
-
+# Begin menu list
+selection = ''
+while (selection != '0') and (selection != 'q'):
+    selection = menuSelect()
+    print(selection)    # should run until quit. Print temp.
+    ## TODO actually enact choices.
+    ## TODO list all
+    ## Todo view one
+    ## todo create
+    ## todo delete
 
 # Closing grog files
 for n in grogs.keys():
