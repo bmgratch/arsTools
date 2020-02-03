@@ -1,7 +1,7 @@
 # Program to test grogs functionality
 
 import shelve, csv
-from grogs import Grog, csvGrog
+from grogs import Grog, csvGrog, dictGrog
 
 # grog format = Grog(name, age, appAge, ritual, ageMod, decrepitude, history)
 
@@ -16,19 +16,18 @@ grogs = {}
 for grog in grogFile.keys():
     grogs[grog.lower()] = grogFile[grog]
     print('Importing:  ' + grog)
-
-grogs['tyro'].display()
+    print(grogs[grog])
+#    g = dictGrog(grogs[grog])
 
 for grog in grogs.keys():
     print('exporting %s...' % grog)
     grogFile[grog] = grogs[grog]
 grogFile.close()
 
-
 # CSV test
-grogCSV = open('test-grogs.csv')
-grogReader = csv.reader(grogCSV)
-grogData = list(grogReader)
-print(grogData)
-gT = csvGrog(grogData[0])
-gT.display()
+##grogCSV = open('test-grogs.csv')
+##grogReader = csv.reader(grogCSV)
+##grogData = list(grogReader)
+##print(grogData)
+##gT = csvGrog(grogData[0])
+##gT.display()
