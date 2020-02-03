@@ -31,6 +31,16 @@ class Grog:
         print('')
 
 #csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
+def dictGrog(gDict):
+    newGrog = Grog(gDict['name'],
+                   gDict['age'],
+                   gDict['appAge'],
+                   gDict['ritual'],
+                   gDict['ageMod'],
+                   gDict['agingPoints'],
+                   gDict['history'])
+    return newGrog
+
 def csvGrog(gList):
     newGrog = Grog(gList[0],
                 int(gList[1]),
