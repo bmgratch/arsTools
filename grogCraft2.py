@@ -76,17 +76,17 @@ while (selection != '0') and (selection != 'q'):
     ## TODO actually enact choices.
     ## TODO list all
     if (selection == '1' or selection == 'l'):
-        print("LIST GROGS")
+        listGrogs(grogs)
     ## Todo view one
     elif (selection == '2' or selection == 'v'):
-        print("VIEW A GROG")
+        viewGrogs(grogs)
     ## todo create
     elif (selection == '3' or selection == 'c'):
-        print("CREATE A GROG")
+        createGrog(grogs)
     ## TODO Modify?
     ## todo delete
     elif (selection == '4' or selection == 'd'):
-        print("DELETE AN GROG")
+        delGrog(grogs)
 
 # Closing grog files
 grogFile = open('new_' +covenant,'w',newline='')
