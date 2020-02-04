@@ -16,8 +16,25 @@ covenant = 'test-grogs.csv'
 
 ## Create a new grog with this function
 def createGrog(grogsList):
-    print("Make a new grog") #placeholder
-    pass
+    newGrog = []
+    print("Let's input a new grog!") #placeholder
+    name = pyip.inputStr("What is the grog's name?  ")
+    newGrog.append(name)
+    age = pyip.inputInt("What is %s's true age?  " % name, min=5)
+    newGrog.append(age)
+    newGrog.append(pyip.inputInt("What is %s's apparent age?  " % name, min=5, max=age))
+    newGrog.append(pyip.inputInt("What is this grog's Longevity Ritual?  ", max=0))
+    newGrog.append(pyip.inputInt("What is %s's other aging modifiers?  " % name))
+    newGrog.append(pyip.inputInt("How many aging points has %s acquired?  " % name, min=0))
+    newGrog = csvGrog(newGrog)
+    print("This is your Grog:")
+    newGrog.display()
+    yn = ""
+    yn = pyip.inputYesNo("Keep this %s [y/n]" % name)
+    if yn == 'yes':
+        grogsList[name.lower()] = newGrog
+    else:
+        print('Scrapping the grog.')
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
