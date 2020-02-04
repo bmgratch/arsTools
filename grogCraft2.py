@@ -2,11 +2,13 @@
 # grogCraft.py - a program to make grogs for aging
 #
 
-import shelve
-from grogs import Grog
+import csv
+from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
-# Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints, history)
+covenant = 'test-grogs.csv'
+
+# Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 ## function: Display a single grog
 ## part of grog class now
 ##def displayGrog(grog):
@@ -34,6 +36,7 @@ def delGrog(grogList):
 
 ## function: print the selection menu
 def printMenu():
+    print()
     print(" 1) [l]ist all grogs")
     print(" 2) [v]iew a grog")
     print(" 3) [c]reate a grog")
@@ -53,12 +56,17 @@ def menuSelect():
             print('INVALID SELECTION')
 
 # Load grog files
-grogFile = shelve.open('grogs')
+grogFile = open(covenant)
+grogReader = csv.reader(grogFile)
 grogs = {}
-for n in grogFile.keys():
-    grogs[n.lower()] = grogFile[n]
-    print('Importing: ' + n)
-print()
+grogData = list(grogReader)
+grogFile.close()
+
+for g in grogData:
+    grogs[g[0].lower()] = csvGrog(g)
+    print('Importing: %s...' % g[0])
+print('Import complete.')
+grogFile.close()
 
 # Begin menu list
 selection = ''
@@ -81,9 +89,10 @@ while (selection != '0') and (selection != 'q'):
         print("DELETE AN GROG")
 
 # Closing grog files
-for n in grogs.keys():
-    print('Exporting %s...' % n)
-    grogFile[n] = grogs[n]
+grogFile = open('new_' +covenant,'w',newline='')
+grogWriter = csv.writer(grogFile)
+for k in grogs.keys():
+    print(' - Exporting %s...' % k)
+    grogWriter.writerow(grogs[k].grogList())
+print('Export Complete: %s' % 'new_' + covenant)
 grogFile.close()
-
-
