@@ -3,15 +3,15 @@
 import math
 
 class Grog:
-
-    def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, history):
+    #def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, history):
+    def __init__(self, name, age, appAge, ritual, ageMod, agingPoints):
         self.name = name
         self.age = age
         self.appAge = appAge
         self.ritual = ritual
         self.ageMod = ageMod
         self.agingPoints = agingPoints
-        self.history = history
+        self.history = []
 
     def display(self):
         print('Name: ' + self.name)
@@ -37,8 +37,7 @@ def dictGrog(gDict):
                    gDict['appAge'],
                    gDict['ritual'],
                    gDict['ageMod'],
-                   gDict['agingPoints'],
-                   gDict['history'])
+                   gDict['agingPoints'])
     return newGrog
 
 def csvGrog(gList):
@@ -47,6 +46,5 @@ def csvGrog(gList):
                 int(gList[2]),
                 int(gList[3]),
                 int(gList[4]),
-                int(gList[5]),
-                list(gList[6])) #this one doesn't work....
+                int(gList[5])) #this one doesn't work....
     return newGrog
