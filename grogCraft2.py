@@ -17,7 +17,7 @@ covenant = 'test-grogs.csv'
 ## Create a new grog with this function
 def createGrog(grogsList):
     newGrog = []
-    print("Let's input a new grog!") #placeholder
+    print("Let's input a new grog!")
     name = pyip.inputStr("What is the grog's name?  ")
     newGrog.append(name)
     age = pyip.inputInt("What is %s's true age?  " % name, min=5)
@@ -38,14 +38,20 @@ def createGrog(grogsList):
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
-    print("List the grogs") # placeholder
-    pass
+    print("Here's a list of your grogs:")
+    for k in grogList.keys():
+        print(" * %s" % k)
+    
 
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
-    print("view single grog") #placeholder
-    pass
-
+    listGrogs(grogList)
+    grog = input("Which grog would you like to look at?  ")
+    if grog.lower() in grogList.keys():
+        grogList[grog].display()
+    else:
+        print("That grog isn't in your covenant.")
+        
 ## function: delete a grog
 def delGrog(grogList):
     print("Delete single grog") # placeholder
