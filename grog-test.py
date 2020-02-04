@@ -5,9 +5,9 @@ from grogs import Grog, csvGrog, dictGrog
 
 # grog format = Grog(name, age, appAge, ritual, ageMod, decrepitude, history)
 
-tyro = Grog('tyro', 40, 40, -4, -1, 1, ['40: no apparent aging'])
+tyro = Grog('tyro', 40, 40, -4, -1, 1)
 #tyro.display()
-nero = Grog('Nero', 25, 23, 0, 0, 0, [])
+nero = Grog('Nero', 25, 23, 0, 0, 0)
 #nero.display()
 
 
@@ -25,9 +25,13 @@ for grog in grogs.keys():
 grogFile.close()
 
 # CSV test
-##grogCSV = open('test-grogs.csv')
-##grogReader = csv.reader(grogCSV)
-##grogData = list(grogReader)
-##print(grogData)
-##gT = csvGrog(grogData[0])
-##gT.display()
+grog2 = []
+grogCSV = open('test-grogs.csv')
+grogReader = csv.reader(grogCSV)
+grogData = list(grogReader)
+for g in grogData:
+    print(g)
+    gT = csvGrog(g)
+    gT.display()
+    grog2.append(csvGrog(g))
+
