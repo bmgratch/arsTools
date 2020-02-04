@@ -54,8 +54,12 @@ def viewGrogs(grogList):
         
 ## function: delete a grog
 def delGrog(grogList):
-    print("Delete single grog") # placeholder
-    pass
+    listGrogs(grogList)
+    grog = input("Which grog would you like to delete?")
+    if grog.lower() in grogList.keys():
+        del grogList[grog]
+    else:
+        print("That grog isn't in your covenant...")
 
 ## function: print the selection menu
 def printMenu():
