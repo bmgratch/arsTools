@@ -1,4 +1,5 @@
 # Program to test grogs functionality
+# Rolled into grogs 2
 
 import shelve, csv
 from grogs import Grog, csvGrog, dictGrog
