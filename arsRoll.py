@@ -13,6 +13,3 @@ def roll(b=0):
         mult *= 2 # double on a 1, roll again
         roll = randint(1, 10)
     return(roll * mult)
-
-for i in range(0, 30):
-    print(roll())
