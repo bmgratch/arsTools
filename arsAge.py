@@ -18,6 +18,8 @@ def ageSimple(grog, years=1):
             if ageRoll <= 2:
                 grog.appAge -= 1
                 grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
+            else:
+                grog.history.append(('(%s) %s'% (str(grog.age), ageTable[3]))
         elif ageRoll <= 2:
             grog.appAge -= 1
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
