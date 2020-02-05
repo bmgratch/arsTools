@@ -14,16 +14,10 @@ def ageSimple(grog, years=1):
         grog.appAge += 1
         mod = math.ceil(grog.age / 10.0) + grog.ritual + grog.ageMod
         ageRoll= roll() + mod
-        if grog.age < 35:
-            if ageRoll <= 2:
-                grog.appAge -= 1
-                grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
-            else:
-                grog.history.append(('(%s) %s'% (str(grog.age), ageTable[3]))
-        elif ageRoll <= 2:
+        if ageRoll <= 2 :
             grog.appAge -= 1
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
-        elif ageRoll <= 9:
+        elif (ageRoll <= 9 or grog.age < 35):
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[3], str(ageRoll)))
         elif ageRoll == 13:
             cap = grog.agingPoints
@@ -98,6 +92,6 @@ crisisTable = {
 # Grog loading and saving should be handled by grogCraft
 # tests below here.
 
-#tyro = Grog('Tyro the Tester', 40, 38, 0, -1, 1)
-#ageSimple(tyro, 20)
-#tyro.display()
+##tyro = Grog('Tyro the Tester', 40, 38, 0, -1, 1)
+##ageSimple(tyro, 20)
+##tyro.display()
