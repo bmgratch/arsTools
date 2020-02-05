@@ -2,11 +2,13 @@
 # grogCraft.py - a program to make grogs for aging
 #
 
-import shelve
-from grogs import Grog
+import csv
+from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
-# Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints, history)
+covenant = 'test-grogs.csv'
+
+# Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 ## function: Display a single grog
 ## part of grog class now
 ##def displayGrog(grog):
@@ -14,26 +16,54 @@ import pyinputplus as pyip
 
 ## Create a new grog with this function
 def createGrog(grogsList):
-    print("Make a new grog") #placeholder
-    pass
+    newGrog = []
+    print("Let's input a new grog!")
+    name = pyip.inputStr("What is the grog's name?  ")
+    newGrog.append(name)
+    age = pyip.inputInt("What is %s's true age?  " % name, min=5)
+    newGrog.append(age)
+    newGrog.append(pyip.inputInt("What is %s's apparent age?  " % name, min=5, max=age))
+    newGrog.append(pyip.inputInt("What is this grog's Longevity Ritual?  ", max=0))
+    newGrog.append(pyip.inputInt("What is %s's other aging modifiers?  " % name))
+    newGrog.append(pyip.inputInt("How many aging points has %s acquired?  " % name, min=0))
+    newGrog = csvGrog(newGrog)
+    print("This is your Grog:")
+    newGrog.display()
+    yn = ""
+    yn = pyip.inputYesNo("Keep this %s [y/n]" % name)
+    if yn == 'yes':
+        grogsList[name.lower()] = newGrog
+    else:
+        print('Scrapping the grog.')
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
-    print("List the grogs") # placeholder
-    pass
+    print("Here's a list of your grogs:")
+    for k in grogList.keys():
+        print(" * %s" % k)
+    
 
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
-    print("view single grog") #placeholder
-    pass
-
+    listGrogs(grogList)
+    grog = input("Which grog would you like to look at?  ")
+    if grog.lower() in grogList.keys():
+        grogList[grog].display()
+    else:
+        print("That grog isn't in your covenant.")
+        
 ## function: delete a grog
 def delGrog(grogList):
-    print("Delete single grog") # placeholder
-    pass
+    listGrogs(grogList)
+    grog = input("Which grog would you like to delete?")
+    if grog.lower() in grogList.keys():
+        del grogList[grog]
+    else:
+        print("That grog isn't in your covenant...")
 
 ## function: print the selection menu
 def printMenu():
+    print()
     print(" 1) [l]ist all grogs")
     print(" 2) [v]iew a grog")
     print(" 3) [c]reate a grog")
@@ -53,37 +83,38 @@ def menuSelect():
             print('INVALID SELECTION')
 
 # Load grog files
-grogFile = shelve.open('grogs')
+grogFile = open(covenant)
+grogReader = csv.reader(grogFile)
 grogs = {}
-for n in grogFile.keys():
-    grogs[n.lower()] = grogFile[n]
-    print('Importing: ' + n)
-print()
+grogData = list(grogReader)
+grogFile.close()
+
+for g in grogData:
+    grogs[g[0].lower()] = csvGrog(g)
+    print('Importing: %s...' % g[0])
+print('Import complete.')
+grogFile.close()
 
 # Begin menu list
 selection = ''
 while (selection != '0') and (selection != 'q'):
     selection = menuSelect()
     print(selection)    # should run until quit. Print temp.
-    ## TODO actually enact choices.
-    ## TODO list all
     if (selection == '1' or selection == 'l'):
-        print("LIST GROGS")
-    ## Todo view one
+        listGrogs(grogs)
     elif (selection == '2' or selection == 'v'):
-        print("VIEW A GROG")
-    ## todo create
+        viewGrogs(grogs)
     elif (selection == '3' or selection == 'c'):
-        print("CREATE A GROG")
+        createGrog(grogs)
     ## TODO Modify?
-    ## todo delete
     elif (selection == '4' or selection == 'd'):
-        print("DELETE AN GROG")
+        delGrog(grogs)
 
 # Closing grog files
-for n in grogs.keys():
-    print('Exporting %s...' % n)
-    grogFile[n] = grogs[n]
+grogFile = open('new_' +covenant,'w',newline='')
+grogWriter = csv.writer(grogFile)
+for k in grogs.keys():
+    print(' - Exporting %s...' % k)
+    grogWriter.writerow(grogs[k].grogList())
+print('Export Complete: %s' % 'new_' + covenant)
 grogFile.close()
-
-

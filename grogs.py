@@ -29,6 +29,9 @@ class Grog:
             for x in self.history:
                 print(' * ' + x)
         print('')
+        
+    def grogList(self):
+        return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints]
 
 #csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
 def dictGrog(gDict):
@@ -46,5 +49,5 @@ def csvGrog(gList):
                 int(gList[2]),
                 int(gList[3]),
                 int(gList[4]),
-                int(gList[5])) #this one doesn't work....
+                int(gList[5]))
     return newGrog
