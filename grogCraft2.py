@@ -2,17 +2,13 @@
 # grogCraft.py - a program to make grogs for aging
 #
 
-import csv
+import csv, arsAge
 from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
 covenant = 'test-grogs.csv'
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
-## function: Display a single grog
-## part of grog class now
-##def displayGrog(grog):
-##    pass
 
 ## Create a new grog with this function
 def createGrog(grogsList):
@@ -46,8 +42,8 @@ def listGrogs(grogList):
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
     listGrogs(grogList)
-    grog = input("Which grog would you like to look at?  ")
-    if grog.lower() in grogList.keys():
+    grog = input("Which grog would you like to look at?  ").lower()
+    if grog in grogList.keys():
         grogList[grog].display()
     else:
         print("That grog isn't in your covenant.")
@@ -55,12 +51,24 @@ def viewGrogs(grogList):
 ## function: delete a grog
 def delGrog(grogList):
     listGrogs(grogList)
-    grog = input("Which grog would you like to delete?")
-    if grog.lower() in grogList.keys():
+    grog = input("Which grog would you like to delete?").lower()
+    if grog in grogList.keys():
         del grogList[grog]
     else:
         print("That grog isn't in your covenant...")
 
+## function: age a grog
+def ageGrog(grogList):
+    grog = input("Which grog would you like to age? ('all' for all)  ").lower()
+    if grog.lower() == 'all':
+        for k in grogList.keys():
+            print("Aging %s..." % grogList[k].name)
+            arsAge.ageSimple(grogList[k])
+    elif grog in grogList.keys():
+        arsAge.ageSimple(grogList[grog])
+    else:
+        print("That grog isn't in your covenant...")
+    
 ## function: print the selection menu
 def printMenu():
     print()
@@ -68,12 +76,13 @@ def printMenu():
     print(" 2) [v]iew a grog")
     print(" 3) [c]reate a grog")
     print(" 4) [d]elete a grog")
+    print(" 5) [a]ge grogs")
     print(" 0) [q]uit")
     return
 
 ## function: make selection from the menu
 def menuSelect():
-    menu = '01234cdlqv' # string of available options from the menu
+    menu = '012345acdlqv' # string of available options from the menu
     while True:
         printMenu()
         opt = input("Select from menu:  ").lower()
@@ -109,6 +118,8 @@ while (selection != '0') and (selection != 'q'):
     ## TODO Modify?
     elif (selection == '4' or selection == 'd'):
         delGrog(grogs)
+    elif (selection == '5' or selection == 'a'):
+        ageGrog(grogs)
 
 # Closing grog files
 grogFile = open('new_' +covenant,'w',newline='')
