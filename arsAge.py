@@ -24,7 +24,10 @@ def ageSimple(grog, years=1):
         elif ageRoll <= 9:
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[3], str(ageRoll)))
         elif ageRoll == 13:
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
+            cap = grog.agingPoints
+            grog.agingPoints = crisis(grog.agingPoints)
+            cap = grog.agingPoints - cap
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[ageRoll], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         elif ageRoll <= 17:
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
@@ -33,25 +36,41 @@ def ageSimple(grog, years=1):
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
             grog.agingPoints += 2
         else:
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
+            cap = grog.agingPoints
+            grog.agingPoints = crisis(grog.agingPoints)
+            cap = grog.agingPoints - cap
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[ageRoll], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         count += 1
     for year in history:
         print(' * %s' % year)
-        print()
     return grog
 
 
 # processing a crisis, advancing aging points
 def crisis(ap):
-    pass
+    # formula ((sqrt(8*(ap/5)+1)-1)/2)
+    if ap < 5:
+        return(5)
+    elif ap < 15:
+        return(15)
+    elif ap < 30:
+        return(30)
+    elif ap < 50:
+        return(50)
+    elif ap < 75:
+        return(75)
+    else:
+        return(105)
 
 # default age increase?
 ageTable = {
     2 : "No Apparent Aging",
     3 : "Age increased",
     10: "1 aging point in any characteristic",
-    13: "CRISIS. Gain aging points to reach next decrepitude.",
+    11: "1 aging point in any characteristic",
+    12: "1 aging point in any characteristic",
+    13: "CRISIS. Gain aging points to reach next decrepitude:",
     14: "1 aging point in Qik",
     15: "1 aging point in Sta",
     16: "1 aging point in Per",
@@ -60,7 +79,7 @@ ageTable = {
     19: "1 aging point each in Dex and Qik",
     20: "1 aging point each in Com and Prs",
     21: "1 aging point each in Int and Per",
-    22: "CRISIS. Gain aging points to reach next decrepitude."
+    22: "CRISIS. Gain aging points to reach next decrepitude:"
     }
 # crisis table?
 # simple die + age/10 + decrepitude
@@ -76,5 +95,7 @@ crisisTable = {
 
 # Grog loading and saving should be handled by grogCraft
 # tests below here.
-tyro = Grog('tyro', 40, 38, -6, -1, 11)
-ageSimple(tyro, 10)
+
+#tyro = Grog('Tyro the Tester', 40, 38, 0, -1, 1)
+#ageSimple(tyro, 20)
+#tyro.display()
