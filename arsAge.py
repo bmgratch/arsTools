@@ -23,7 +23,7 @@ def ageSimple(grog, years=1):
             cap = grog.agingPoints
             grog.agingPoints = crisis(grog.agingPoints)
             cap = grog.agingPoints - cap
-            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[ageRoll], str(cap), str(ageRoll)))
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[13], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         elif ageRoll <= 17:
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
@@ -35,7 +35,7 @@ def ageSimple(grog, years=1):
             cap = grog.agingPoints
             grog.agingPoints = crisis(grog.agingPoints)
             cap = grog.agingPoints - cap
-            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[ageRoll], str(cap), str(ageRoll)))
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[22], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         count += 1
     for year in history:
