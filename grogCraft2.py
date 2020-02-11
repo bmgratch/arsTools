@@ -7,6 +7,7 @@ from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
 covenant = 'test-grogs.csv'
+#covenant = 'keras-nisi.csv'    # This is my covenant!
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
