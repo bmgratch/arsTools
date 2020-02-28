@@ -12,4 +12,6 @@ grogCraft2.py is my grog handling software.  It can load from csv *(currently se
 
 Plans to do:
 
-Set grogs for different aging speeds.
+Set grogs for different aging speeds. (goats!)
+Make a script that just ingests a csv and ages everything 1 year. (for keras nisi)
+Change csv into tsv, preserve history.
