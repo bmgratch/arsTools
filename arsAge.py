@@ -92,6 +92,6 @@ crisisTable = {
 # Grog loading and saving should be handled by grogCraft
 # tests below here.
 
-##tyro = Grog('Tyro the Tester', 40, 38, 0, -1, 1)
+##tyro = Grog('Tyro the Tester', 40, 38, 0, -1, 1, 1)
 ##ageSimple(tyro, 20)
 ##tyro.display()
