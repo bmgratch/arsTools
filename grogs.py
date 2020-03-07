@@ -4,13 +4,14 @@ import math
 
 class Grog:
     #def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, history):
-    def __init__(self, name, age, appAge, ritual, ageMod, agingPoints):
+    def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, ageSpeed):
         self.name = name
         self.age = age
         self.appAge = appAge
         self.ritual = ritual
         self.ageMod = ageMod
         self.agingPoints = agingPoints
+        self.ageSpeed = ageSpeed
         self.history = []
 
     def display(self):
@@ -24,6 +25,8 @@ class Grog:
         if self.agingPoints > 0:    # only print decrepitude if aging poitns exist
             decrepitude = math.floor(((math.sqrt(8*(self.agingPoints/5)+1)-1)/2))
             print(' Decrepitude: %s (%s)' % (str(decrepitude), self.agingPoints) )
+        if ageSpeed != 1:
+            print(' Aging Speed: %s' % ageSpeed)
         if len(self.history) > 0:    # only print history if there is history
             print(' Aging History:')
             for x in self.history:
@@ -31,7 +34,7 @@ class Grog:
         print('')
         
     def grogList(self):
-        return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints]
+        return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints, self.ageSpeed]
 
 #csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
 def dictGrog(gDict):
@@ -40,7 +43,8 @@ def dictGrog(gDict):
                    gDict['appAge'],
                    gDict['ritual'],
                    gDict['ageMod'],
-                   gDict['agingPoints'])
+                   gDict['agingPoints'],
+                   gDict['ageSpeed'])
     return newGrog
 
 def csvGrog(gList):
@@ -49,5 +53,6 @@ def csvGrog(gList):
                 int(gList[2]),
                 int(gList[3]),
                 int(gList[4]),
-                int(gList[5]))
+                int(gList[5]),
+                int(gList[6]))
     return newGrog
