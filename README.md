@@ -9,9 +9,10 @@ arsAge.py has a simple aging method, arsAge.ageSimple() that ages a grog given t
 
 grogCraft2.py is my grog handling software.  It can load from csv *(currently set to test-grogs.csv)* and save *(currently to new-test-grogs.csv)*. In the program, you can create new grogs, view and list your grogs, delete a grog, and age your grogs up (single or all).
 
+massAge.py is a python script which imports a covenant.csv and exports a new_covenant.csv one year later.
+
 
 Plans to do:
 
-Set grogs for different aging speeds. (goats!)
-Make a script that just ingests a csv and ages everything 1 year. (for keras nisi)
+Set grogs for different aging speeds. (goats!) ** ageSpeed added, does not cause errors, does not do anything yet. **
 Change csv into tsv, preserve history.
