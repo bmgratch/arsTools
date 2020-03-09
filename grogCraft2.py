@@ -6,7 +6,8 @@ import csv, arsAge
 from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
-covenant = 'test-grogs.csv'
+#covenant = 'test-grogs.csv'    # csv files
+covenant = 'test-grogs.tsv'     # tsv files
 #covenant = 'keras-nisi.csv'    # This is my covenant!
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
@@ -94,7 +95,9 @@ def menuSelect():
 
 # Load grog files
 grogFile = open(covenant)
-grogReader = csv.reader(grogFile)
+#grogReader = csv.reader(grogFile, delimiter='\t')  # .tsv files
+grogReader = csv.reader(grogFile)   # .csv
+
 grogs = {}
 grogData = list(grogReader)
 grogFile.close()
@@ -124,7 +127,9 @@ while (selection != '0') and (selection != 'q'):
 
 # Closing grog files
 grogFile = open('new_' +covenant,'w',newline='')
-grogWriter = csv.writer(grogFile)
+grogWriter = csv.writer(grogFile, delimiter='\t')   # .tsv files
+#grogWriter = csv.writer(grogFile)   # .csv files
+
 for k in grogs.keys():
     print(' - Exporting %s...' % k)
     grogWriter.writerow(grogs[k].grogList())
