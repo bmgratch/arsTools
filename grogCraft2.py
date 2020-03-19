@@ -1,4 +1,4 @@
-#! python3
+##! python3
 # grogCraft.py - a program to make grogs for aging
 #
 
@@ -6,7 +6,7 @@ import csv, arsAge
 from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
-covenant = 'test-grogs.csv'
+covenant = 'test-grogs'
 #covenant = 'keras-nisi.csv'    # This is my covenant!
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
@@ -93,8 +93,9 @@ def menuSelect():
             print('INVALID SELECTION')
 
 # Load grog files
-grogFile = open(covenant)
-grogReader = csv.reader(grogFile)
+grogFile = open(covenant + '.tsv')
+grogReader = csv.reader(grogFile, delimiter='\t')
+
 grogs = {}
 grogData = list(grogReader)
 grogFile.close()
@@ -123,10 +124,11 @@ while (selection != '0') and (selection != 'q'):
         ageGrog(grogs)
 
 # Closing grog files
-grogFile = open('new_' +covenant,'w',newline='')
-grogWriter = csv.writer(grogFile)
+grogFile = open(covenant + '_new.tsv','w',newline='')
+grogWriter = csv.writer(grogFile, delimiter='\t')
+
 for k in grogs.keys():
     print(' - Exporting %s...' % k)
     grogWriter.writerow(grogs[k].grogList())
-print('Export Complete: %s' % 'new_' + covenant)
+print('Export Complete: %s' % 'new ' + covenant)
 grogFile.close()

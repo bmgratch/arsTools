@@ -3,7 +3,6 @@
 import math
 
 class Grog:
-    #def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, history):
     def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, ageSpeed):
         self.name = name
         self.age = age
@@ -17,9 +16,9 @@ class Grog:
     def display(self):
         print('Name: ' + self.name)
         if self.ritual < 0:      # only print ritual if there is a ritual
-            print(' Age: %s (%s) [LR %s]' % (self.age, self.appAge, str(self.ritual)))
+            print(' Age: %s (%s) [LR %s]' % (self.age, int(self.appAge), str(self.ritual)))
         else:
-            print(' Age: %s (%s)' % (self.age, self.appAge))
+            print(' Age: %s (%s)' % (self.age, int(self.appAge)))
         if self.ageMod != 0:
             print(' Other aging mods: %s' % str(self.ageMod))
         if self.agingPoints > 0:    # only print decrepitude if aging poitns exist
@@ -36,7 +35,6 @@ class Grog:
     def grogList(self):
         return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints, self.ageSpeed]
 
-#csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
 def dictGrog(gDict):
     newGrog = Grog(gDict['name'],
                    gDict['age'],
