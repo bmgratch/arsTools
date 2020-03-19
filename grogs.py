@@ -3,7 +3,6 @@
 import math
 
 class Grog:
-    #def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, history):
     def __init__(self, name, age, appAge, ritual, ageMod, agingPoints, ageSpeed):
         self.name = name
         self.age = age
@@ -36,7 +35,6 @@ class Grog:
     def grogList(self):
         return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints, self.ageSpeed]
 
-#csv grog data ['name', 'age', 'appAge', 'ritual', 'ageMod', 'agingPoints', 'history']
 def dictGrog(gDict):
     newGrog = Grog(gDict['name'],
                    gDict['age'],
