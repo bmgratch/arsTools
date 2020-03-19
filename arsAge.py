@@ -7,17 +7,24 @@ from arsRoll import roll
 
 # simple grog aging for non-statted grogs
 def ageSimple(grog, years=1):
-    count = 0
+    yearCount = 0
+    rollCount = 0
     history = grog.history
-    while count < years:
-        grog.age += 1
-        grog.appAge += 1
-        mod = math.ceil(grog.age / 10.0) + grog.ritual + grog.ageMod
+    while yearCount < years:
+        if rollCount == 0:   #advance age
+            grog.age += 1
+        effective_age = grog.age * grog.ageSpeed
+        grog.appAge += 1.0 / grog.ageSpeed
+        mod = math.ceil(effective_age / 10.0) + grog.ritual + grog.ageMod
+        #make the roll
         ageRoll= roll() + mod
+        rollCount += 1
+
+        # Compare result to table
         if ageRoll <= 2 :
-            grog.appAge -= 1
+            grog.appAge -= 1.0 / grog.ageSpeed
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
-        elif (ageRoll <= 9 or grog.age < 35):
+        elif (ageRoll <= 9 or effective_age < 35):
             grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[3], str(ageRoll)))
         elif ageRoll == 13:
             cap = grog.agingPoints
@@ -37,7 +44,9 @@ def ageSimple(grog, years=1):
             cap = grog.agingPoints - cap
             grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[22], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
-        count += 1
+        if rollCount == grog.ageSpeed:
+            rollCount = 0
+            yearCount += 1
     for year in history:
         print(' * %s' % year)
     return grog
