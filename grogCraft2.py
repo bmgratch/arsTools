@@ -1,13 +1,16 @@
 ##! python3
-# grogCraft.py - a program to make grogs for aging
-#
+# grogCraft2.py - a program to make grogs for aging
+# Usage: grogCraft2.py 
 
-import csv, arsAge
+import csv, arsAge, sys
 from grogs import Grog, csvGrog
 import pyinputplus as pyip
 
-covenant = 'test-grogs'
-#covenant = 'keras-nisi.csv'    # This is my covenant!
+if len(sys.argv) == 2:
+    covenant = sys.argv[1]
+else:
+    covenant = 'test-grogs'
+    #covenant = 'keras-nisi.csv'    # This is my covenant!
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
@@ -23,6 +26,7 @@ def createGrog(grogsList):
     newGrog.append(pyip.inputInt("What is this grog's Longevity Ritual?  ", max=0))
     newGrog.append(pyip.inputInt("What is %s's other aging modifiers?  " % name))
     newGrog.append(pyip.inputInt("How many aging points has %s acquired?  " % name, min=0))
+    newGrog.append(1)
     newGrog = csvGrog(newGrog)
     print("This is your Grog:")
     newGrog.display()
@@ -87,7 +91,9 @@ def menuSelect():
     while True:
         printMenu()
         opt = input("Select from menu:  ").lower()
-        if opt[0] in menu:
+        if opt == '':
+            print('No selection made.')
+        elif opt[0] in menu:
             return(opt[0])
         else:
             print('INVALID SELECTION')
