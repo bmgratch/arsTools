@@ -10,7 +10,7 @@ if len(sys.argv) == 2:
     covenant = sys.argv[1]
 else:
     covenant = 'test-grogs'
-    #covenant = 'keras-nisi.csv'    # This is my covenant!
+#    covenant = 'keras-nisi'    # This is my covenant!
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
