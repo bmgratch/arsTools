@@ -3,5 +3,5 @@
 *.dat
 *.dir
 __pycache__/*
-new_test-grogs.csv
-keras-nisi.csv
+*_new.tsv
+keras-nisi.*
