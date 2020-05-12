@@ -48,7 +48,7 @@ def dictGrog(gDict):
 def csvGrog(gList):
     newGrog = Grog(gList[0],
                 int(gList[1]),
-                int(gList[2]),
+                float(gList[2]),
                 int(gList[3]),
                 int(gList[4]),
                 int(gList[5]),

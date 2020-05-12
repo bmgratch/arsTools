@@ -23,26 +23,26 @@ def ageSimple(grog, years=1):
         # Compare result to table
         if ageRoll <= 2 :
             grog.appAge -= 1.0 / grog.ageSpeed
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[2], str(ageRoll)))
+            grog.history.append('(%s) %s / %s'% (str(grog.age), AGE_TABLE[2], str(ageRoll)))
         elif (ageRoll <= 9 or effective_age < 35):
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[3], str(ageRoll)))
+            grog.history.append('(%s) %s / %s'% (str(grog.age), AGE_TABLE[3], str(ageRoll)))
         elif ageRoll == 13:
             cap = grog.agingPoints
             grog.agingPoints = crisis(grog.agingPoints)
             cap = grog.agingPoints - cap
-            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[13], str(cap), str(ageRoll)))
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), AGE_TABLE[13], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         elif ageRoll <= 17:
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
+            grog.history.append('(%s) %s / %s'% (str(grog.age), AGE_TABLE[ageRoll], str(ageRoll)))
             grog.agingPoints += 1
         elif ageRoll <= 21:
-            grog.history.append('(%s) %s / %s'% (str(grog.age), ageTable[ageRoll], str(ageRoll)))
+            grog.history.append('(%s) %s / %s'% (str(grog.age), AGE_TABLE[ageRoll], str(ageRoll)))
             grog.agingPoints += 2
         else:
             cap = grog.agingPoints
             grog.agingPoints = crisis(grog.agingPoints)
             cap = grog.agingPoints - cap
-            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), ageTable[22], str(cap), str(ageRoll)))
+            grog.history.append('(%s) %s [%s]/ %s'% (str(grog.age), AGE_TABLE[22], str(cap), str(ageRoll)))
             #grog.ritual = 0 #disabled
         if rollCount == grog.ageSpeed:
             rollCount = 0
@@ -69,7 +69,7 @@ def crisis(ap):
         return(105)
 
 # default age increase?
-ageTable = {
+AGE_TABLE = {
     2 : "No Apparent Aging",
     3 : "Age increased",
     10: "1 aging point in any characteristic",
@@ -88,7 +88,7 @@ ageTable = {
     }
 # crisis table?
 # simple die + age/10 + decrepitude
-crisisTable = {
+CRISIS_TABLE = {
     8 : "Bedridden for a week.",
     9 : "Bedridden for a month.",
     15: "Minor Illness. Sta 3+ or CrCo 20",

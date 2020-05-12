@@ -7,6 +7,7 @@ from random import randint
 def roll(b=0):
     roll = randint(0,9)
     #TODO botch dice. not needed for aging
+    
     # processing exploding dice
     mult = 1
     while roll == 1:
