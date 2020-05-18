@@ -8,14 +8,36 @@ from grogs import Grog, csvGrog
 
 # CONSTANTS
 MENU = ["list all grogs",
-        "view a grog"
+        "view a grog",
         "create a grog",
         "delete a grog",
         "age grogs"]
+MENU_CHOICES = [str(opt) for opt in range(0, len(MENU) + 1)] + [opt[0] for opt in MENU] + ['q']
 COV_FOLDER = "covenants"
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
+## Grog Menu Action function
+def menuAction(selection):
+    if selection == '1' or selection == 'l':
+        print('\t' + MENU[0])
+        print('This is a temporary filler action.')
+    if selection == '2' or selection == 'v':
+        print('\t' + MENU[1])
+        print('This is a temporary filler action.')
+    if selection == '3' or selection == 'c':
+        print('\t' + MENU[2])
+        print('This is a temporary filler action.')
+    if selection == '4' or selection == 'd':
+        print('\t' + MENU[3])
+        print('This is a temporary filler action.')
+    if selection == '5' or selection == 'a':
+        print('\t' + MENU[4])
+        print('This is a temporary filler action.')
+    if selection == '0' or selection == 'q':
+        print('Quitting...')
+        terminate()
+    
 ## Create a new grog with this function
 def createGrog(grogsList):
     print("Currently not implemented.")
@@ -61,17 +83,23 @@ def printMenu():
     print()
     for n, m in enumerate(MENU):
         print(" %s) [%s]%s" % (n + 1, m[0], m[1:]))
-    print(" 0) [q]uit")
+    print(" 0) [q]uit (This will quit the program entirely)")
 
 ## function: make selection from the menu
 def menuSelect():
-    pass
+    while True:
+        opt = input("Select from menu:  ").lower()
+        if opt[0] in MENU_CHOICES:
+            return opt[0]
+        else:
+            print('Invalid selection.')
 
 # Get covenants
 def listCovenants():
     return [cov[:-4] for cov in os.listdir(COV_FOLDER) if cov.endswith('.tsv')]
 
 def selectCovenant():
+    print("Select active covenant from the files below:")
     covList = listCovenants()
     sel = ''
     for n, c in enumerate(covList):
@@ -141,7 +169,9 @@ while True:
     #print menu
     printMenu()
     #get selection
+    menuAct = menuSelect()
     #act on selection
+    menuAction(menuAct)
 # End
-    saveCovenant()
-    terminate()
+#    saveCovenant()
+#    terminate()
