@@ -2,8 +2,9 @@
 # grogCraft2.py - a program to make grogs for aging
 # Usage: grogCraft2.py 
 
-import csv, arsAge, sys
+import csv, arsAge, sys, os
 from grogs import Grog, csvGrog
+
 
 # CONSTANTS
 MENU = ["list all grogs",
@@ -11,33 +12,49 @@ MENU = ["list all grogs",
         "create a grog",
         "delete a grog",
         "age grogs"]
-
-if len(sys.argv) == 2:
-    covenant = sys.argv[1]
-else:
-    covenant = 'test-grogs'
-#    covenant = 'keras-nisi'    # This is my covenant!
+COV_FOLDER = "covenants"
 
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
 ## Create a new grog with this function
 def createGrog(grogsList):
+    print("Currently not implemented.")
     pass
+
 ## function: List all grogs in your list
 def listGrogs(grogList):
-    pass    
-
+    print("Here's a list of your grogs:")
+    for k in grogList.keys():
+        print(" * %s" % k)
+        
 ## function: select a grog to view from a list
 def viewGrogs(grogList):
-    pass
+    listGrogs(grogList)
+    grog = input("Which grog would you like to look at?  ").lower()
+    if grog in grogList.keys():
+        grogList[grog].display()
+    else:
+        print("That grog isn't in your covenant.")
         
 ## function: delete a grog
 def delGrog(grogList):
-    pass
-
+    listGrogs(grogList)
+    grog = input("Which grog would you like to delete?").lower()
+    if grog in grogList.keys():
+        del grogList[grog]
+    else:
+        print("That grog isn't in your covenant...")
 ## function: age a grog
 def ageGrog(grogList):
-    pass
+    grog = input("Which grog would you like to age? ('all' for all)  ").lower()
+    if grog.lower() == 'all':
+        for k in grogList.keys():
+            print("Aging %s..." % grogList[k].name)
+            arsAge.ageSimple(grogList[k])
+    elif grog in grogList.keys():
+        arsAge.ageSimple(grogList[grog])
+    else:
+        print("That grog isn't in your covenant...")
     
 ## function: print the selection menu
 def printMenu():
@@ -50,24 +67,40 @@ def printMenu():
 def menuSelect():
     pass
 
+# Get covenants
+def listCovenants():
+    return [cov[:-4] for cov in os.listdir(COV_FOLDER) if cov.endswith('.tsv')]
+
+def selectCovenant():
+    covList = listCovenants()
+    sel = ''
+    for n, c in enumerate(covList):
+        print(" %s) %s" % (n + 1, c))
+    print(" 0) cancel")
+    while not sel.isnumeric():
+        print('Make selection:  ')
+        sel = input()
+        if sel.isnumeric():
+            if int(sel) not in range(0, len(covList) + 1):
+                sel = ''
+    if sel == '0':
+        return None
+    return covList[int(sel) - 1]
+
 # Load grog files
-def loadCovenant():
+def loadCovenant(covenant):
     grogFile = open(covenant + '.tsv')
     grogReader = csv.reader(grogFile, delimiter='\t')
 
-    grogs = {}
+    cov_grogs = {}
     grogData = list(grogReader)
 
     for g in grogData:
-        grogs[g[0].lower()] = csvGrog(g)
+        cov_grogs[g[0].lower()] = csvGrog(g)
         print('Importing: %s...' % g[0])
     print('Import complete.')
     grogFile.close()
-    return grogs
-
-# Begin menu list
-def menuSelect():
-    pass
+    return cov_grogs
 
 # Closing grog files
 def saveCovenant():
@@ -80,4 +113,11 @@ def saveCovenant():
     print('Export Complete: %s' % 'new ' + covenant)
     grogFile.close()
 
-printMenu()
+# TEST RUNS
+#printMenu()    # Works
+cov = selectCovenant()
+grogs = {}
+if cov:
+    grogs = loadCovenant(os.path.join(COV_FOLDER, cov))
+
+viewGrogs(grogs)
