@@ -97,7 +97,7 @@ def selectCovenant():
 
 # Load grog files
 def loadCovenant(covenant):
-    grogFile = open(covenant + '.tsv')
+    grogFile = open(os.path.join(COV_FOLDER, covenant + '.tsv'))
     grogReader = csv.reader(grogFile, delimiter='\t')
 
     cov_grogs = {}
@@ -112,7 +112,7 @@ def loadCovenant(covenant):
 
 # Closing grog files
 def saveCovenant():
-    grogFile = open(covenant + '_new.tsv','w',newline='')
+    grogFile = open(os.path.join(COV_FOLDER, covenant) + '_new.tsv','w',newline='')
     grogWriter = csv.writer(grogFile, delimiter='\t')
 
     for k in grogs.keys():
@@ -128,8 +128,7 @@ def terminate():
 # Load the covenant or get a new one
 covenant = selectCovenant()
 if covenant in listCovenants():
-    grogs = loadCovenant(os.path.join(COV_FOLDER, covenant))
-    viewGrogs(grogs)
+    grogs = loadCovenant(covenant)
 elif not covenant:
     terminate()
 else:
@@ -137,6 +136,12 @@ else:
     print('Creating blank covenant: ' + covenant)
 
 # Begin covenant-grog loop
+menuAct = ''
 while True:
+    #print menu
+    printMenu()
+    #get selection
+    #act on selection
 # End
+    saveCovenant()
     terminate()
