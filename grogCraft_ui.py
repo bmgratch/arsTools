@@ -76,15 +76,23 @@ def selectCovenant():
     sel = ''
     for n, c in enumerate(covList):
         print(" %s) %s" % (n + 1, c))
+    print(" %s) NEW COVENANT" % (len(covList) + 1))
     print(" 0) cancel")
     while not sel.isnumeric():
-        print('Make selection:  ')
+        print('Make selection:   ', end='')
         sel = input()
         if sel.isnumeric():
-            if int(sel) not in range(0, len(covList) + 1):
+            if int(sel) not in range(0, len(covList) + 2):
                 sel = ''
     if sel == '0':
         return None
+    elif int(sel) == len(covList) + 1:
+        print('Creating new covenant... select name: (enter nothing to cancel)')
+        cov = input()
+        if len(cov) > 0:
+            return cov
+        else:
+            return None
     return covList[int(sel) - 1]
 
 # Load grog files
@@ -113,11 +121,22 @@ def saveCovenant():
     print('Export Complete: %s' % 'new ' + covenant)
     grogFile.close()
 
-# TEST RUNS
-#printMenu()    # Works
-cov = selectCovenant()
-grogs = {}
-if cov:
-    grogs = loadCovenant(os.path.join(COV_FOLDER, cov))
+def terminate():
+    print('Goodbye!')
+    sys.exit()
 
-viewGrogs(grogs)
+# Load the covenant or get a new one
+covenant = selectCovenant()
+if covenant in listCovenants():
+    grogs = loadCovenant(os.path.join(COV_FOLDER, covenant))
+    viewGrogs(grogs)
+elif not covenant:
+    terminate()
+else:
+    grogs = {}
+    print('Creating blank covenant: ' + covenant)
+
+# Begin covenant-grog loop
+while True:
+# End
+    terminate()
