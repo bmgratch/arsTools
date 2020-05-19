@@ -6,6 +6,7 @@ import csv, arsAge, sys, os
 from grogs import Grog, csvGrog
 
 
+
 # CONSTANTS
 MENU = ["list all grogs",
         "view a grog",
@@ -18,30 +19,72 @@ COV_FOLDER = "covenants"
 # Grog Input: Grog(name, age, appAge, ritual, ageMod, agingPoints)
 
 ## Grog Menu Action function
-def menuAction(selection):
+def menuAction(selection, grogList):
     if selection == '1' or selection == 'l':
-        print('\t' + MENU[0])
-        print('This is a temporary filler action.')
+        print('\t* Listing all grogs *')
+        listGrogs(grogList)
     if selection == '2' or selection == 'v':
-        print('\t' + MENU[1])
-        print('This is a temporary filler action.')
+        print('\t* Viewing a single grog *')
+        viewGrogs(grogList)
     if selection == '3' or selection == 'c':
-        print('\t' + MENU[2])
-        print('This is a temporary filler action.')
+        print('\t* Creating a new grog *')
+        createGrog(grogList)
     if selection == '4' or selection == 'd':
-        print('\t' + MENU[3])
-        print('This is a temporary filler action.')
+        print('\t* Deleting an unneeded grog *')
+        delGrog(grogList)
     if selection == '5' or selection == 'a':
-        print('\t' + MENU[4])
-        print('This is a temporary filler action.')
+        print('\t* Aging grogs *')
+        ageGrog(grogList)
     if selection == '0' or selection == 'q':
         print('Quitting...')
         terminate()
+
     
 ## Create a new grog with this function
 def createGrog(grogsList):
-    print("Currently not implemented.")
-    pass
+    newGrog = []
+    print("Let's input a new grog!")
+    name = ''
+    while not name:
+        name = input("What is the grog's name?  ")
+    newGrog.append(name)
+    age = 0
+    while age < 5:
+        age = getNumber("What is %s's true age? (5 years or older) " % name)
+    newGrog.append(age)
+    appAge, lr, agingPoints = age + 1, 1, -1
+    while appAge > age or appAge < 5:
+        appAge = getNumber("What is %s's apparent age? (between 5 and %s) " % (name, age))
+    newGrog.append(appAge)
+    while lr > 0:
+        lr = getNumber("What is this grog's Longevity Ritual bonus? (remember, it should be 0 or less!) ")
+    newGrog.append(lr)
+    newGrog.append(getNumber("What is %s's other aging modifiers?  " % name))
+    while agingPoints < 0:
+        agingPoints = getNumber("How many aging points has %s acquired?  (This can't be below 0) " % name)
+    newGrog.append(agingPoints)
+    newGrog.append(1)
+    newGrog = csvGrog(newGrog)
+    print("This is your Grog:")
+    newGrog.display()
+    yn = ""
+    while not yn.lower().startswith('y') and not yn.lower().startswith('n'):
+        yn = input("Keep this %s [y/n]" % name)
+    if yn.lower().startswith('y'):
+        grogsList[name.lower()] = newGrog
+    else:
+        print('Scrapping the grog.')
+
+def getNumber(message):
+    while True:
+        try:
+            num = int(input(message))
+        except ValueError:
+            print('Please input an integer.')
+            continue
+        else:
+            return num
+            break
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
@@ -89,7 +132,7 @@ def printMenu():
 def menuSelect():
     while True:
         opt = input("Select from menu:  ").lower()
-        if opt[0] in MENU_CHOICES:
+        if opt and opt[0] in MENU_CHOICES:
             return opt[0]
         else:
             print('Invalid selection.')
@@ -116,7 +159,7 @@ def selectCovenant():
         return None
     elif int(sel) == len(covList) + 1:
         print('Creating new covenant... select name: (enter nothing to cancel)')
-        cov = input()
+        cov = input().strip()
         if len(cov) > 0:
             return cov
         else:
@@ -150,6 +193,12 @@ def saveCovenant():
     grogFile.close()
 
 def terminate():
+    yn = ''
+    print('Would you like to save the covenant?')
+    while not yn.lower().startswith('y') and not yn.lower().startswith('n'):
+        yn = input('(yes or no?)')
+    if yn.lower().startswith('y'):
+        saveCovenant()
     print('Goodbye!')
     sys.exit()
 
@@ -171,7 +220,5 @@ while True:
     #get selection
     menuAct = menuSelect()
     #act on selection
-    menuAction(menuAct)
-# End
-#    saveCovenant()
-#    terminate()
+    menuAction(menuAct, grogs)
+
