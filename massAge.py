@@ -1,7 +1,7 @@
 #! python3
 ## massAge.py - This python module is designed to mass-age a number of grogs
 ## using natural rolling. It ingests a file, and asks you the final age
-## of each grog in the csv.
+## of each grog in the tsv.
 
 import csv, arsAge
 from grogs import Grog, csvGrog
