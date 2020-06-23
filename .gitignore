@@ -4,4 +4,3 @@
 *.dir
 __pycache__/*
 *_new.tsv
-keras-nisi.*
