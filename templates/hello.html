@@ -1,9 +1,9 @@
-<html>
-    <body>
-        {% if name %}
-            <h1>Hello, {{ name }}!</h1>
-        {% else %}
-            <h1>Hello, Mythic Europe!</h1>
-        {% endif %}
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    {% if covenant %}
+    <h1>Hello, {{ covenant }}!</h1>
+    {% else %}
+    <h1>Hello, Mythic Europe!</h1>
+    {% endif %}
+{% endblock %}

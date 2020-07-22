@@ -1,0 +1,18 @@
+<html>
+    <head>
+        {% if covenant %}
+        <title>{{ covenant }} - ArsAge</title>
+        {% else %}
+        <title>Welcome to ArsAge!</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            ArsAge **
+            <a href> Load Covenant</a>
+            <a href>New Covenant</a>
+            <a href="{{ url_for('hello_me') }}">Help</a>
+        </div>
+        {% block content%}{% endblock %}
+    </body>
+</html>
