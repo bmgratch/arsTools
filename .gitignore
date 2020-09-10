@@ -5,5 +5,5 @@
 __pycache__/*
 *_new.tsv
 .vscode/settings.json
-venv/*
+/venv/*
 *.pyc
