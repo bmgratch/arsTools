@@ -84,7 +84,6 @@ def getNumber(message):
             continue
         else:
             return num
-            break
 
 ## function: List all grogs in your list
 def listGrogs(grogList):
