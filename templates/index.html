@@ -6,9 +6,10 @@
 
 {% block body %}
 <h2>Index of Covenants</h2>
+Links do not function yet
 <div>
     {% for cov in covenants %}
-        {{cov}}<br>
+        <a href="/cov/{{cov}}">{{ cov }}</a><br>
     {% endfor %}
 </div>
 {% endblock %}
