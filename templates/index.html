@@ -5,5 +5,10 @@
 {% endblock %}
 
 {% block body %}
-<h1>Index Covenant</h1>
+<h2>Index of Covenants</h2>
+<div>
+    {% for cov in covenants %}
+        {{cov}}<br>
+    {% endfor %}
+</div>
 {% endblock %}
