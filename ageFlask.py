@@ -7,7 +7,6 @@ COV_FOLDER = "covenants"
 
 app = Flask(__name__)
 
-## TODO Display listed grogs in covenant when selected
 ## TODO Make buttons on COV do something
 ## TODO actually update save data
 ## TODO Make new covenants
@@ -31,8 +30,6 @@ def loadCovenant(covenant):
 
     for g in grogData:
         cov_grogs[g[0].lower()] = csvGrog(g)
-        print('Importing: %s...' % g[0])
-    print('Import complete.')
     grogFile.close()
     return cov_grogs
 
