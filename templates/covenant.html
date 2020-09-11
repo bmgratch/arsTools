@@ -7,21 +7,20 @@
 {% block body %}
 <h2>COVENANT {{cov}}</h2>
 <h3>Cov Year 1220</h3>
+(Currently, the action buttons don't do anything)
 <div class="grogs">
     <table>
         <tr>
             <th>Name</th>
             <th>age</th>
-            <th>app age</th>
             <th>decrepitude</th>
             <th>actions</th>
         </tr>
-        {% for grog in grogs %}
+        {% for grog in grogs.keys() %}
         <tr>
-            <td>{{ grog }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ grogs[grog].name }}</td>
+            <td>{{ grogs[grog].age }}({{grogs[grog].appAge}})</td>
+            <td>{{ grogs[grog].decrep() }}({{grogs[grog].agingPoints }})</td>
             <td>
                 <a href="">View</a>
                 <a href="">Modify</a>

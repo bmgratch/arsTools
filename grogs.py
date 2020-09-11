@@ -23,7 +23,7 @@ class Grog:
             print(' Other aging mods: %s' % str(self.ageMod))
         if self.agingPoints > 0:    # only print decrepitude if aging poitns exist
             decrepitude = math.floor(((math.sqrt(8*(self.agingPoints/5)+1)-1)/2))
-            print(' Decrepitude: %s (%s)' % (str(decrepitude), self.agingPoints) )
+            print(' Decrepitude: %s (%s)' % (self.decrep(), self.agingPoints) )
         if self.ageSpeed != 1:
             print(' Aging Speed: %s' % self.ageSpeed)
         if len(self.history) > 0:    # only print history if there is history
@@ -32,6 +32,9 @@ class Grog:
                 print(' * ' + x)
         print('')
         
+    def decrep(self):
+        return math.floor(((math.sqrt(8*(self.agingPoints/5)+1)-1)/2))
+
     def grogList(self):
         return [self.name, self.age, self.appAge, self.ritual, self.ageMod, self.agingPoints, self.ageSpeed]
 

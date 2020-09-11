@@ -7,9 +7,11 @@ COV_FOLDER = "covenants"
 
 app = Flask(__name__)
 
+## TODO Make grogs load properly - fix appage display
 ## TODO Make buttons on COV do something
 ## TODO actually update save data
 ## TODO Make new covenants
+## TODO make covenant track years
 
 @app.route('/')
 def index():
