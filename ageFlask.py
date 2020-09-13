@@ -20,10 +20,14 @@ def index():
     covenants = [cov[:-4] for cov in os.listdir(COV_FOLDER) if cov.endswith('.tsv')]
     return render_template('index.html', covenants=covenants)
 
-@app.route('/cov/<cov>')
+@app.route('/<cov>')
 def covenant(cov):
     grogs = loadCovenant(cov)
     return render_template('covenant.html', grogs=grogs, cov=cov)
+
+@app.route('/<cov>/<grog>')
+def grog(grog, cov):
+    return render_template('grog.html', grog=grog, cov=cov)
 
 def loadCovenant(covenant):
     grogFile = open(os.path.join(COV_FOLDER, covenant + '.tsv'))
